@@ -16,25 +16,17 @@
     --text-color: #171717;
     --highlight-color: #0088ff;
 
-    /* --bg-color: #2E2E2E;
+    --bg-color: #2E2E2E;
     --text-color: #FFCC00;
-    --highlight-color: #FF5733; */
+    --highlight-color: #FF5733;
 
     /* --bg-color: #1A1A1A;
     --text-color: #00BFFF;
     --highlight-color: #FF4500; */
 
-    /* --bg-color: #4B4B4B;
-    --text-color: #32CD32;
-    --highlight-color: #FFD700; */
-
     /* --bg-color: #2C3E50;
     --text-color: #E74C3C;
     --highlight-color: #F1C40F; */
-
-    /* --bg-color: #FFFFF;
-    --text-color: #0099ff;
-    --highlight-color: #0056B3; */
 }
 
 * {
@@ -104,12 +96,6 @@ ul {
     }
 }
 
-section {
-    position: relative;
-    display: flex;
-    flex-flow: column;
-}
-
 #canvas-container {
     position: fixed;
     top: 0;
@@ -119,7 +105,7 @@ section {
     overflow: hidden;
     pointer-events: none;
     z-index: 10;
-    mix-blend-mode: difference;
+    mix-blend-mode: color-dodge;
     pointer-events: none;
     opacity: .5;
 }
@@ -139,6 +125,7 @@ section {
     justify-content: end;
     z-index: 999;
     pointer-events: none;
+    mix-blend-mode: difference;
 }
 
 nav {
@@ -292,7 +279,9 @@ nav ul {
 }
 
 section {
+    position: relative;
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: center;
     padding: var(--padding);
@@ -306,11 +295,11 @@ section {
 }
 
 .hero-section h1 {
-    position: absolute;
+    /* position: absolute;
     left: var(--padding);
-    bottom: var(--padding);
+    bottom: var(--padding); */
     line-height: 90%;
-    font-size: clamp(3.5rem, 18vw, 18.5rem);
+    font-size: clamp(3.5rem, 18vw, 18rem);
 }
 
 .hero-content {
@@ -441,4 +430,39 @@ section {
 .swiper-slide-inner:hover {
     transform: translate(4.5rem, 2.25rem) scale(1.2);
     z-index: 5;
+}
+
+/* DEFAULTS */
+.about-content {
+    display: flex;
+    flex-flow: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.about-text-container {
+    width: 100%;
+    max-width: 74rem;
+}
+
+.about-text-container p {
+    font-size: 3rem;
+    line-height: 120%;
+}
+
+.col-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-flow: row;   
+}
+
+.col-container .col {
+    width: 50%;
+    display: flex;
+    flex-flow: column;
+}
+
+.col-container .col:nth-child(2) {
+    padding-top: 20rem;
 }
