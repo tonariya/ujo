@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Cube Renderer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+        #ascii-container {
+            font-size: 8px;
+            line-height: 8px;
+            letter-spacing: 0;
+            white-space: pre;
+        }
+        h1 {
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ASCII Cube Renderer</h1>
+    <div id="ascii-container"></div>
+    
+    <script type="module">
+        try {
+            const THREE = await import('./node_modules/three/build/three.module.js');
+
+            // ASCII characters from darkest to lightest
+            const asciiChars = ' .:-=+*#%@';
+        
+        // Canvas setup for rendering
+        const asciiContainer = document.getElementById('ascii-container');
+        
+        // ASCII dimensions
+        const asciiWidth = 120;
+        const asciiHeight = 40;
+
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, asciiWidth / asciiHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: false });
+        
+        renderer.setSize(asciiWidth, asciiHeight);
+        renderer.setClearColor(0x000000);
+
+        // Create cube
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshLambertMaterial({ color: 0xffffff });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        camera.position.z = 3;
+
+        function pixelToAscii(r, g, b) {
+            // Convert RGB to brightness (0-255)
+            const brightness = (r + g + b) / 3;
+            // Map brightness to ASCII character index
+            const charIndex = Math.floor((brightness / 255) * (asciiChars.length - 1));
+            return asciiChars[charIndex];
+        }
+
+        function renderAscii() {
+            // Render 3D scene to WebGL canvas
+            renderer.render(scene, camera);
+            
+            // Create a 2D canvas to read pixel data
+            const canvas2d = document.createElement('canvas');
+            canvas2d.width = asciiWidth;
+            canvas2d.height = asciiHeight;
+            const ctx = canvas2d.getContext('2d');
+            
+            // Draw the WebGL canvas to 2D canvas
+            ctx.drawImage(renderer.domElement, 0, 0);
+            
+            // Get image data from 2D canvas
+            const imageData = ctx.getImageData(0, 0, asciiWidth, asciiHeight);
+            const pixels = imageData.data;
+            
+            // Convert pixels to ASCII
+            let asciiOutput = '';
+            for (let y = 0; y < asciiHeight; y++) {
+                for (let x = 0; x < asciiWidth; x++) {
+                    const pixelIndex = (y * asciiWidth + x) * 4;
+                    const r = pixels[pixelIndex];
+                    const g = pixels[pixelIndex + 1];
+                    const b = pixels[pixelIndex + 2];
+                    
+                    asciiOutput += pixelToAscii(r, g, b);
+                }
+                asciiOutput += '\n';
+            }
+            
+            // Display ASCII art
+            asciiContainer.textContent = asciiOutput;
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            cube.rotation.x += 0.02;
+            cube.rotation.y += 0.03;
+            
+            renderAscii();
+        }
+
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = asciiWidth / asciiHeight;
+                camera.updateProjectionMatrix();
+            });
+        } catch (error) {
+            console.error('Failed to load Three.js:', error);
+            document.getElementById('ascii-container').textContent = 'Error loading Three.js module. Check console for details.';
+        }
+    </script>
+</body>
+</html>

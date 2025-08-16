@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Explorer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #ffffff;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 1;
+      transition: transform 0.3s ease-out;
+    }
+
+    .player {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(45deg, #ff006e, #00f5ff);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.6);
+      z-index: 100;
+      transition: all 0.1s ease;
+    }
+
+    .player::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 2px solid rgba(255, 0, 110, 0.3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 0.1;
+      }
+    }
+
+    .data-node {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 245, 255, 0.1);
+      border: 2px solid #00f5ff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease, transform 0.3s ease-out;
+      z-index: 10;
+    }
+
+    /* Mobile-specific styling */
+    @media (max-width: 768px) {
+      .data-node {
+        width: 80px;
+        height: 80px;
+        border-width: 3px;
+      }
+
+      .data-node .icon {
+        font-size: 32px;
+      }
+    }
+
+    .data-node:hover {
+      background: rgba(0, 245, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+      transform: scale(1.1);
+    }
+
+    /* Mobile tap states */
+    @media (max-width: 768px) {
+      .data-node:active {
+        background: rgba(0, 245, 255, 0.4);
+        box-shadow: 0 0 40px rgba(0, 245, 255, 0.7);
+        transform: scale(1.15);
+      }
+    }
+
+    .data-node.collected {
+      background: rgba(255, 0, 110, 0.3);
+      border-color: #ff006e;
+      box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+    }
+
+    .data-node .icon {
+      font-size: 24px;
+      color: #00f5ff;
+    }
+
+    .data-node.collected .icon {
+      color: #ff006e;
+    }
+
+    .info-panel {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #00f5ff;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 300px;
+      z-index: 200;
+      transform: translateX(-120%);
+      transition: transform 0.3s ease;
+    }
+
+    .info-panel.active {
+      transform: translateX(0);
+    }
+
+    .info-panel h3 {
+      color: #ff006e;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .info-panel p {
+      color: #ffffff;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    .hud {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #00f5ff;
+      border-radius: 8px;
+      padding: 15px;
+      z-index: 200;
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff006e, #00f5ff);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .connection-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, #ff006e, #00f5ff);
+      transform-origin: left center;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .connection-line.active {
+      opacity: 0.6;
+    }
+
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .intro-screen h1 {
+      font-size: 48px;
+      background: linear-gradient(45deg, #ff006e, #00f5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+      }
+
+      to {
+        filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.5));
+      }
+    }
+
+    .intro-screen p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #cccccc;
+    }
+
+    .start-button {
+      padding: 15px 30px;
+      background: transparent;
+      border: 2px solid #00f5ff;
+      color: #00f5ff;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .start-button:hover {
+      background: #00f5ff;
+      color: #000000;
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+    }
+
+    .mini-map {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 150px;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #00f5ff;
+      border-radius: 8px;
+      z-index: 200;
+    }
+
+    .mini-map-player {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ff006e;
+      border-radius: 50%;
+    }
+
+    .mini-map-node {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #00f5ff;
+      border-radius: 50%;
+    }
+
+    .mini-map-node.collected {
+      background: #ff006e;
+    }
+
+    .trail {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 0, 110, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      .info-panel {
+        max-width: 250px;
+        font-size: 12px;
+      }
+
+      .hud {
+        padding: 10px;
+      }
+
+      .progress-bar {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="game-container">
+    <div class="grid-overlay"></div>
+
+    <div class="intro-screen" id="introScreen">
+      <h1>Portfolio Explorer</h1>
+      <p>Navigate through my digital space to discover my skills and projects</p>
+      <p style="font-size: 14px; color: #888; margin-top: 10px;">
+        <span id="controlText">Move your mouse to explore • Get close to nodes to collect them</span>
+      </p>
+      <button class="start-button" onclick="startGame()">Start Exploring</button>
+    </div>
+
+    <div class="player" id="player"></div>
+
+    <div class="info-panel" id="infoPanel">
+      <h3 id="infoTitle">Welcome!</h3>
+      <p id="infoContent">Move around to discover data nodes and learn about my work!</p>
+    </div>
+
+    <div class="hud">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div style="color: #00f5ff; font-size: 12px;">
+        Discovered: <span id="progressText">0/6</span>
+      </div>
+    </div>
+
+    <div class="mini-map" id="miniMap">
+      <div class="mini-map-player" id="miniMapPlayer"></div>
+    </div>
+
+    <!-- Data Nodes -->
+    <div class="data-node" data-info="about" style="top: 15%; left: 20%;">
+      <span class="icon">👋</span>
+    </div>
+
+    <div class="data-node" data-info="skills" style="top: 30%; left: 70%;">
+      <span class="icon">⚡</span>
+    </div>
+
+    <div class="data-node" data-info="experience" style="top: 60%; left: 15%;">
+      <span class="icon">🚀</span>
+    </div>
+
+    <div class="data-node" data-info="projects" style="top: 45%; left: 85%;">
+      <span class="icon">💻</span>
+    </div>
+
+    <div class="data-node" data-info="contact" style="top: 80%; left: 60%;">
+      <span class="icon">📧</span>
+    </div>
+
+    <div class="data-node" data-info="easter-egg" style="top: 10%; left: 90%;">
+      <span class="icon">🎮</span>
+    </div>
+  </div>
+
+  <script>
+    let gameStarted = false;
+    let player = document.getElementById('player');
+    let infoPanel = document.getElementById('infoPanel');
+    let progressFill = document.getElementById('progressFill');
+    let progressText = document.getElementById('progressText');
+    let miniMapPlayer = document.getElementById('miniMapPlayer');
+
+    let playerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let collectedNodes = new Set();
+    let trails = [];
+
+    // Viewport offset for POV effect
+    let viewportOffset = { x: 0, y: 0 };
+
+    const nodeData = {
+      about: {
+        title: "About Me",
+        content: "Hi! I'm a creative front-end developer with 3+ years of experience crafting engaging digital experiences. I love bringing ideas to life through code!"
+      },
+      skills: {
+        title: "Tech Stack",
+        content: "JavaScript • React • GSAP • CSS3 • HTML5 • Node.js • Modern frameworks and libraries for creating interactive web experiences."
+      },
+      experience: {
+        title: "Experience",
+        content: "3+ years building user-focused applications, interactive websites, and engaging UI/UX experiences. Always learning and experimenting with new technologies."
+      },
+      projects: {
+        title: "Projects",
+        content: "Interactive web apps, smooth animations, responsive designs, and creative coding experiments. Each project pushes the boundaries of what's possible on the web."
+      },
+      contact: {
+        title: "Let's Connect!",
+        content: "Ready to collaborate? Reach out via email or check out my work on GitHub. Always excited to discuss new opportunities and creative projects!"
+      },
+      "easter-egg": {
+        title: "Easter Egg Found! 🎉",
+        content: "Congratulations! You found the hidden node. You have great attention to detail - exactly what makes a good developer! Keep exploring!"
+      }
+    };
+
+    function startGame() {
+      document.getElementById('introScreen').style.display = 'none';
+      gameStarted = true;
+
+      // Update control text based on device
+      if (isMobile) {
+        document.getElementById('controlText').textContent = 'Drag to move • Tap near nodes to collect them';
+      }
+
+      updatePlayer();
+      showInfo('about');
+    }
+
+    function updatePlayer() {
+      player.style.left = (playerPos.x - 10) + 'px';
+      player.style.top = (playerPos.y - 10) + 'px';
+
+      // Update mini-map
+      miniMapPlayer.style.left = (playerPos.x / window.innerWidth * 150) + 'px';
+      miniMapPlayer.style.top = (playerPos.y / window.innerHeight * 100) + 'px';
+
+      // Add trail effect
+      addTrail();
+
+      // Check proximity to nodes
+      checkNodeProximity();
+    }
+
+    function updateViewport() {
+      if (!gameStarted) return;
+
+      // Calculate viewport offset based on mouse position
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // More noticeable movement - max 30px offset for testing
+      const maxOffset = 30;
+      viewportOffset.x = ((mousePos.x - centerX) / centerX) * maxOffset;
+      viewportOffset.y = ((mousePos.y - centerY) / centerY) * maxOffset;
+
+      // Apply transform to grid and elements
+      const gridOverlay = document.querySelector('.grid-overlay');
+      if (gridOverlay) {
+        gridOverlay.style.transform = `translate(${viewportOffset.x}px, ${viewportOffset.y}px)`;
+      }
+
+      // Apply different parallax speeds to different elements
+      const nodes = document.querySelectorAll('.data-node');
+      nodes.forEach((node, index) => {
+        // Different layers move at different speeds
+        const depth = 0.3 + (index % 3) * 0.1; // 0.3, 0.4, 0.5
+        const offsetX = viewportOffset.x * depth;
+        const offsetY = viewportOffset.y * depth;
+        node.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+
+      // HUD elements move slightly in opposite direction for depth
+      const hud = document.querySelector('.hud');
+      const miniMap = document.querySelector('.mini-map');
+      if (hud && miniMap) {
+        const hudOffset = viewportOffset.x * -0.15;
+        const hudOffsetY = viewportOffset.y * -0.15;
+
+        hud.style.transform = `translate(${hudOffset}px, ${hudOffsetY}px)`;
+        miniMap.style.transform = `translate(${hudOffset}px, ${hudOffsetY}px)`;
+      }
+    }
+
+    function addTrail() {
+      if (trails.length > 20) {
+        const oldTrail = trails.shift();
+        if (oldTrail.parentNode) {
+          oldTrail.parentNode.removeChild(oldTrail);
+        }
+      }
+
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = (playerPos.x - 2) + 'px';
+      trail.style.top = (playerPos.y - 2) + 'px';
+      document.querySelector('.game-container').appendChild(trail);
+      trails.push(trail);
+
+      setTimeout(() => {
+        if (trail.parentNode) {
+          trail.style.opacity = '0';
+          setTimeout(() => {
+            if (trail.parentNode) {
+              trail.parentNode.removeChild(trail);
+            }
+          }, 500);
+        }
+      }, 200);
+    }
+
+    function checkNodeProximity() {
+      const nodes = document.querySelectorAll('.data-node');
+      nodes.forEach(node => {
+        const rect = node.getBoundingClientRect();
+        const nodeCenter = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+
+        const distance = Math.sqrt(
+          Math.pow(playerPos.x - nodeCenter.x, 2) +
+          Math.pow(playerPos.y - nodeCenter.y, 2)
+        );
+
+        // Larger detection radius on mobile
+        const detectionRadius = isMobile ? 120 : 80;
+
+        if (distance < detectionRadius && !collectedNodes.has(node.dataset.info)) {
+          collectNode(node);
+        }
+      });
+    }
+
+    function collectNode(node) {
+      const nodeInfo = node.dataset.info;
+      collectedNodes.add(nodeInfo);
+      node.classList.add('collected');
+
+      // Update progress
+      const progress = (collectedNodes.size / 6) * 100;
+      progressFill.style.width = progress + '%';
+      progressText.textContent = `${collectedNodes.size}/6`;
+
+      // Show info
+      showInfo(nodeInfo);
+
+      // Add to mini-map
+      const miniMapNode = document.createElement('div');
+      miniMapNode.className = 'mini-map-node collected';
+      const nodeRect = node.getBoundingClientRect();
+      miniMapNode.style.left = (nodeRect.left / window.innerWidth * 150) + 'px';
+      miniMapNode.style.top = (nodeRect.top / window.innerHeight * 100) + 'px';
+      document.getElementById('miniMap').appendChild(miniMapNode);
+
+      // Particle effect
+      createParticles(node);
+    }
+
+    function createParticles(node) {
+      const rect = node.getBoundingClientRect();
+      for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = '4px';
+        particle.style.height = '4px';
+        particle.style.background = '#ff006e';
+        particle.style.borderRadius = '50%';
+        particle.style.left = (rect.left + rect.width / 2) + 'px';
+        particle.style.top = (rect.top + rect.height / 2) + 'px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '1000';
+
+        document.body.appendChild(particle);
+
+        const angle = (Math.PI * 2 * i) / 10;
+        const velocity = 50 + Math.random() * 50;
+
+        particle.animate([
+          { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+          {
+            transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity}px) scale(0)`,
+            opacity: 0
+          }
+        ], {
+          duration: 1000,
+          easing: 'ease-out'
+        }).onfinish = () => particle.remove();
+      }
+    }
+
+    function showInfo(nodeInfo) {
+      const data = nodeData[nodeInfo];
+      document.getElementById('infoTitle').textContent = data.title;
+      document.getElementById('infoContent').textContent = data.content;
+      infoPanel.classList.add('active');
+
+      setTimeout(() => {
+        infoPanel.classList.remove('active');
+      }, 4000);
+    }
+
+    // Mouse movement
+    document.addEventListener('mousemove', (e) => {
+      if (!gameStarted) return;
+
+      // Update mouse position for viewport effect
+      mousePos.x = e.clientX;
+      mousePos.y = e.clientY;
+
+      playerPos.x += (e.clientX - playerPos.x) * 0.1;
+      playerPos.y += (e.clientY - playerPos.y) * 0.1;
+
+      updatePlayer();
+      updateViewport(); // Call viewport update separately
+    });
+
+    // Mobile detection
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+    // Touch support for mobile
+    let touchStartTime = 0;
+    let lastTouchPos = { x: 0, y: 0 };
+
+    document.addEventListener('touchstart', (e) => {
+      if (!gameStarted) return;
+      touchStartTime = Date.now();
+      const touch = e.touches[0];
+      lastTouchPos = { x: touch.clientX, y: touch.clientY };
+
+      // Direct tap to collect nearby nodes on mobile
+      if (isMobile) {
+        checkDirectTap(touch.clientX, touch.clientY);
+      }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!gameStarted) return;
+      e.preventDefault();
+
+      const touch = e.touches[0];
+
+      if (isMobile) {
+        // Direct movement on mobile - player follows touch
+        playerPos.x = touch.clientX;
+        playerPos.y = touch.clientY;
+      } else {
+        // Smooth following for tablets
+        playerPos.x += (touch.clientX - playerPos.x) * 0.1;
+        playerPos.y += (touch.clientY - playerPos.y) * 0.1;
+      }
+
+      updatePlayer();
+    });
+
+    document.addEventListener('touchend', (e) => {
+      if (!gameStarted || !isMobile) return;
+
+      const touchDuration = Date.now() - touchStartTime;
+
+      // Quick tap = collect nearby nodes
+      if (touchDuration < 200) {
+        checkDirectTap(lastTouchPos.x, lastTouchPos.y);
+      }
+    });
+
+    function checkDirectTap(tapX, tapY) {
+      const nodes = document.querySelectorAll('.data-node:not(.collected)');
+      nodes.forEach(node => {
+        const rect = node.getBoundingClientRect();
+        const nodeCenter = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+
+        const distance = Math.sqrt(
+          Math.pow(tapX - nodeCenter.x, 2) +
+          Math.pow(tapY - nodeCenter.y, 2)
+        );
+
+        // Larger tap radius for mobile
+        if (distance < 100) {
+          collectNode(node);
+          // Add visual feedback for tap
+          createTapFeedback(tapX, tapY);
+        }
+      });
+    }
+
+    function createTapFeedback(x, y) {
+      const feedback = document.createElement('div');
+      feedback.style.position = 'absolute';
+      feedback.style.left = (x - 15) + 'px';
+      feedback.style.top = (y - 15) + 'px';
+      feedback.style.width = '30px';
+      feedback.style.height = '30px';
+      feedback.style.border = '2px solid #00f5ff';
+      feedback.style.borderRadius = '50%';
+      feedback.style.pointerEvents = 'none';
+      feedback.style.zIndex = '1000';
+
+      document.body.appendChild(feedback);
+
+      feedback.animate([
+        { transform: 'scale(0.5)', opacity: 1 },
+        { transform: 'scale(1.5)', opacity: 0 }
+      ], {
+        duration: 300,
+        easing: 'ease-out'
+      }).onfinish = () => feedback.remove();
+    }
+
+    // Initialize mini-map nodes
+    function initMiniMap() {
+      const nodes = document.querySelectorAll('.data-node');
+      nodes.forEach(node => {
+        const miniMapNode = document.createElement('div');
+        miniMapNode.className = 'mini-map-node';
+        const nodeRect = node.getBoundingClientRect();
+        miniMapNode.style.left = (nodeRect.left / window.innerWidth * 150) + 'px';
+        miniMapNode.style.top = (nodeRect.top / window.innerHeight * 100) + 'px';
+        document.getElementById('miniMap').appendChild(miniMapNode);
+      });
+    }
+
+    // Keyboard controls as backup
+    document.addEventListener('keydown', (e) => {
+      if (!gameStarted) return;
+
+      const speed = 10;
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+          playerPos.y = Math.max(10, playerPos.y - speed);
+          break;
+        case 'ArrowDown':
+        case 's':
+          playerPos.y = Math.min(window.innerHeight - 10, playerPos.y + speed);
+          break;
+        case 'ArrowLeft':
+        case 'a':
+          playerPos.x = Math.max(10, playerPos.x - speed);
+          break;
+        case 'ArrowRight':
+        case 'd':
+          playerPos.x = Math.min(window.innerWidth - 10, playerPos.x + speed);
+          break;
+      }
+      updatePlayer();
+    });
+
+    // Initialize
+    window.addEventListener('load', () => {
+      initMiniMap();
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      // Keep player in bounds
+      playerPos.x = Math.min(playerPos.x, window.innerWidth - 10);
+      playerPos.y = Math.min(playerPos.y, window.innerHeight - 10);
+      updatePlayer();
+    });
+  </script>
+</body>
+
+</html>

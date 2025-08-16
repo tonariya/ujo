@@ -1,0 +1,25 @@
+.carousel_container {
+    overflow-x: hidden;
+}
+
+.carousel_container_inner {
+    white-space: nowrap;
+    width: auto;
+    min-width: unset;
+    max-width: unset;
+    overflow: visible;
+}
+
+.carousel_row {
+    display: flex;
+    max-width: unset;
+    min-width: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.carousel_row:not(.inverted) .carousel_row_inner {
+    position: relative;
+    left: -200%;
+}

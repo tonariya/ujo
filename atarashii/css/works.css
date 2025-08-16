@@ -1,0 +1,86 @@
+.works-section {
+    overflow: clip;
+    z-index: 5;
+}
+
+.works-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.works-window-wrapper {
+    position: absolute;
+}
+
+.works-window-container {
+    position: relative;
+    width: 400px;
+    aspect-ratio: 10 / 7;
+    position: relative;
+    background-color: rgba(128, 128, 128, 0.274);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding: .5rem;
+    padding-top: 2rem;
+}
+
+.works-window-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 25, 112, 0.522);
+    color: rgba(255, 255, 255, 0.823);
+    font-size: 2rem;
+}
+
+.works-window-wrapper:nth-child(1) {
+    left: 44%;
+    top: 3rem;
+}
+
+.works-window-wrapper:nth-child(2) {
+    top: 25%;
+    left: 17%;
+}
+
+.works-window-wrapper:nth-child(3) {
+    left: 20%;
+    bottom: 2rem;
+}
+
+.works-window-wrapper:nth-child(4) {
+    right: 10%;
+    bottom: 20%;
+}
+
+.works-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip;
+    font-size: clamp(4rem,8vw,12rem);
+    text-transform: uppercase;
+    z-index: 0;
+}
+
+.works-carousel .carousel_row {
+    position: relative;
+    left: -5rem;
+    transform: rotate(-10deg);
+    pointer-events: none;
+}
+.works-carousel.bottom .carousel_row {
+    left: -8rem;
+}
+
+.works-carousel.top {
+    top: 10rem;
+}
+
+.works-carousel.bottom {
+    bottom: 10rem;
+}

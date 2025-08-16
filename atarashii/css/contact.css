@@ -1,0 +1,14 @@
+.contact-content {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 8rem;
+}
+
+.contacts-row-container {
+    width: 100%;
+    white-space: nowrap;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}

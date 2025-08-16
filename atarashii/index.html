@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+    <title>Space Galaxy Scene</title>
+
+    <!-- <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+    </style> -->
+</head>
+
+<body>
+
+    <div class="nav-container">
+        <nav>
+            <div class="nav-menu">
+                <div class="nav-menu-button menu-about"></div>
+                <div class="nav-menu-button menu-works"></div>
+                <div class="nav-menu-button menu-contact"></div>
+            </div>
+            <div class="nav-menu-dropdown-container">
+                <div class="nav-menu-dropdown-col left">
+                    Left Col
+                </div>
+                <div class="nav-menu-dropdown-col center">
+                    Center Col
+                </div>
+                <div class="nav-menu-dropdown-col right">
+                    Right Col
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="canvas-container">
+        <div class="canvas-container-inner">
+            <canvas></canvas>
+        </div>
+    </div>
+    <section class="hero-section">
+        <div class="padding-global">
+            <div class="container">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="padding-global">
+            <div class="container">
+                MENU
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="padding-global">
+            <div class="container">
+                ABOUT
+                <div class="about-text-content">
+                    <h2>BRIEF QUOTE HERE</h2>
+                    <p>Brief introductory text with a bit more info on who I am, where I'm from, what I do, what I like.
+                        It doesn't have to be too long, can't also be too short. I don't want to be a drag about it, but
+                        I can't let myself be unseen. That's something I've always struggled with my whole life.
+                        <br><br>
+                        You can write something good about yourself, I know you can.
+                    </p>
+                </div>
+
+                <div class="carousel_container">
+                    <div class="carousel_container_inner">
+
+                        <div class="carousel_row" loopDuration = "5">
+                            <div class="carousel_row_inner">
+
+                                <!-- content items go here (images, etc.) -->
+                                <span>GSAP</span>
+                                <span>Webflow</span>
+                                <span>Javascript</span>
+                                <span>Next.Js</span>
+                                <span>Barba.Js</span>
+                                <span>THREE.Js</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card-el">
+                        <div class="card-front-container"></div>
+                        <div class="card-back-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="relative">
+        <div class="carousel_container works-carousel top">
+            <div class="carousel_container_inner">
+
+                <div class="carousel_row inverted">
+                    <div class="carousel_row_inner">
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <section class="works-section">
+            <div class="padding-global">
+                <div class="container">
+
+                    <div class="works-content">
+                        <div class="works-window-wrapper">
+                            <div class="works-window-container">
+                                <div class="works-window-inner">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper">
+                            <div class="works-window-container">
+                                <div class="works-window-inner">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper">
+                            <div class="works-window-container">
+                                <div class="works-window-inner">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper">
+                            <div class="works-window-container">
+                                <div class="works-window-inner">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <div class="carousel_container works-carousel bottom">
+            <div class="carousel_container_inner">
+
+                <div class="carousel_row">
+                    <div class="carousel_row_inner">
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="padding-global">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-text-container">
+                        <h2>Let's have a chat and make a change.</h2>
+                        <p>いいですか？</p>
+                    </div>
+                    <div class="contacts-row-container">
+                        <div class="social-btn">
+                            GitHub
+                        </div>
+                        <div class="social-btn">
+                            Mail
+                        </div>
+                        <div class="social-btn">
+                            Resume
+                        </div>
+                        <div class="social-btn">
+                            LinkedIn
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script type="module" src="./js/lenis.js"></script>
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/gsap.js"></script>
+    <script type="module" src="./js/carousel-row.js"></script>
+</body>
+
+</html>
