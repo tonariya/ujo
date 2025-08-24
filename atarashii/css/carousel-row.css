@@ -21,5 +21,5 @@
 
 .carousel_row:not(.inverted) .carousel_row_inner {
     position: relative;
-    left: -200%;
+    left: -350%;
 }

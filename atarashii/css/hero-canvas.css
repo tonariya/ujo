@@ -40,3 +40,15 @@ canvas {
     display: flex;
     flex-flow: column;
 }
+
+/*
+*   MOBILE
+*/
+
+@media screen and (max-width: 991px) {
+    .canvas-container-inner {
+        width: auto;
+        height: 75%;
+        aspect-ratio: unset;
+    }
+}
