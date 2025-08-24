@@ -4,7 +4,7 @@
 
 .carousel_container_inner {
     white-space: nowrap;
-    width: auto;
+    width: 100%;
     min-width: unset;
     max-width: unset;
     overflow: visible;
@@ -17,9 +17,10 @@
     width: auto;
     white-space: nowrap;
     overflow: visible;
+    position: relative;
 }
 
 .carousel_row:not(.inverted) .carousel_row_inner {
     position: relative;
-    left: -350%;
+    left: -100%;
 }

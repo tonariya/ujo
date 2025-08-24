@@ -1,16 +1,32 @@
 @import url('nav.css');
 @import url('hero-canvas.css');
 @import url('swiper.css');
+@import url('about-section.css');
 @import url('carousel-row.css');
 @import url('card-el.css');
 @import url('works.css');
 @import url('contact.css');
+
+
+/*
+*   DEV TEMPORARY
+*/
+nav {
+    display: none;
+}
+
+
+
 
 :root {
     --padding: 2rem;
     --padding-y: 1.2rem;
     --padding-x: 2rem;
     --padding-m: 2rem;
+
+    --padding-sm: 1rem;
+    --padding-md: 3.5rem;
+    --padding-lg: 4.5rem;
 
     --container-max-w: 1512px;
 
@@ -62,11 +78,11 @@ h5 {
 }
 
 h1 {
-    font-size: clamp(3.2rem, 12vw, 12.5rem);
+    font-size: clamp(3.2rem, 12vw, 8rem);
 }
 
 h2 {
-    font-size: clamp(2.5rem, 8vw, 9rem);
+    font-size: clamp(2.5rem, 8vw, 6rem);
 }
 
 h3 {
@@ -123,6 +139,16 @@ ul {
 
 .col-container .col:nth-child(2) {
     padding-top: 20rem;
+}
+
+.flex-col {
+    display: flex;
+    flex-flow: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-flow: row;
 }
 
 section {
@@ -252,4 +278,15 @@ section {
 .container.col {
     flex-flow: column;
     align-items: center;
+}
+
+/* Split Text Lines */
+.line {
+    position: relative;
+    overflow-y: clip;
+}
+
+/* Works Window */
+.works-window-inner {
+    overflow: clip;
 }

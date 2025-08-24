@@ -20,7 +20,6 @@ canvas {
     height: 100% !important;
     /* position: fixed;
     inset: 0; */
-
 }
 
 .hero-section {
@@ -28,17 +27,27 @@ canvas {
     position: relative;
 }
 
-.hero-section h1 {
-    /* position: absolute;
-    left: var(--padding);
-    bottom: var(--padding); */
-    line-height: 90%;
-    font-size: clamp(3.5rem, 18vw, 18rem);
-}
-
 .hero-content {
     display: flex;
     flex-flow: column;
+}
+
+.hero-section h1,
+.hero-subtitle {
+    position: absolute;
+}
+
+.hero-section h1 {
+    bottom: var(--padding);
+    left: 0;
+    white-space: nowrap;
+    line-height: 120%;
+    font-size: clamp(3.5rem, 18vw, 18rem);
+}
+
+.hero-subtitle {
+    top: var(--padding);
+    right: 0;
 }
 
 /*
