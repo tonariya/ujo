@@ -3,6 +3,11 @@
     flex-flow: column;
     justify-content: center;
     gap: 8rem;
+    width: 100%;
+}
+
+.contact-text-container {
+    max-width: 58rem;
 }
 
 .contacts-row-container {
