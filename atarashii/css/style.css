@@ -28,22 +28,27 @@
     --padding-md: 5.5rem;
     --padding-lg: 7rem;
 
+    --radius: .25rem;
+
     --container-max-w: 1512px;
 
     --nav-text-size: 2rem;
     --nav-text-size-m: 1.25rem;
 
-    --text-size: 1.25rem;
+    --text-size: 1rem;
+    --text-line-height: 120%;
     --text-size-m: .825rem;
 
-    --white: #FFF;
+    --white: #f2f2f2;
+    --white-alpha: #f2f2f27b;
     --black: #171717;
     --gray-dark: #2E2E2E;
     --blue: #0088ff;
     --red: #FF5733;
     --yellow: #FFCC00;
 
-    --bg-color: var(--black);
+    --hero-text-color: #fff600;
+    --bg-color: var(--white);
     --text-color: var(--blue);
     --highlight-color: #0088ff;
 
@@ -60,7 +65,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    color: var(--text-color);
+    /* color: var(--text-color); */
 }
 
 body {
@@ -72,9 +77,14 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "Jersey 10", serif;
-    font-weight: 400;
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 600;
     font-style: normal;
+    line-height: normal;
+
+    color: var(--white);
+    opacity: .85;
+    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
 }
 
 h1 {
@@ -91,18 +101,19 @@ h3 {
 
 a {
     text-decoration: none;
-    font-family: "Poppins", serif;
-    font-weight: 400;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300;
     font-style: normal;
 }
 
 p,
 ul,
-ul li {
+ul li,
+nav {
     font-size: var(--text-size);
-    line-height: 1.5rem;
-    font-family: "Poppins", serif;
-    font-weight: 400;
+    line-height: var(--text-line-height);
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300;
     font-style: normal;
 }
 
@@ -118,8 +129,13 @@ ul {
 
 /* DEFAULTS */
 .sub {
-    font-family: "Source Code Pro", serif;
-    font-optical-sizing: auto;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.mono {
+    font-family: "M PLUS 1 Code", monospace;
     font-weight: 400;
     font-style: normal;
 }
@@ -162,7 +178,13 @@ section {
     max-width: calc(100vw - 1px);
 
     overflow-x: hidden;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    transition: opacity .5s ease;
+    transition-delay: .25s;
+}
+
+body.menu-open section {
+    opacity: 0;
 }
 
 .padding-global {

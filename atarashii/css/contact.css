@@ -1,3 +1,7 @@
+section#contact {
+    overflow: hidden;
+}
+
 .contact-content {
     display: flex;
     flex-flow: column;
@@ -7,7 +11,29 @@
 }
 
 .contact-text-container {
-    max-width: 58rem;
+    max-width: 50rem;
+    display: flex;
+    flex-flow: column;
+    gap: 1.25rem;
+}
+
+.contact-text-container .line {
+    overflow: visible;
+}
+
+.contact-text-container h2 {
+    font-size: 7rem;
+    line-height: 100%;
+}
+
+.contact-text-container p {
+    font-size: 2.5rem;
+    align-self: end;
+    text-align: right;
+    margin-right: -4rem;
+    color: #ffffff;
+    opacity: .6;
+    filter: blur(.05rem);
 }
 
 .contacts-row-container {
@@ -16,4 +42,14 @@
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+}
+
+.social-btn {
+    padding: .275rem 1rem;
+    border-radius: 2rem;
+    border: 2px var(--white) solid;
+    font-size: 1.25rem;
+    color: var(--white);
+    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
+    cursor: pointer;
 }

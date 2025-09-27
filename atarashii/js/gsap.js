@@ -31,17 +31,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             }
-        }).to('.canvas-container-inner', {
+        })
+        .from('.canvas-container-inner', {
+            xPercent: 40,
+            yPercent: -10,
+            duration: .8,
+            ease: 'power1.out'
+        })
+        .to('.canvas-container-inner', {
             width: () => `${heroSection.offsetWidth}px`,
             duration: 1,
             ease: 'power2.out',
-        })
+        }, "-=.5")
             .to(heroSubtitle, {
                 delay: .1,
                 filter: 'blur(8px)',
                 opacity: '0',
-                duration: .5,
-                scale: 1.2,
+                duration: .8,
+                scale: 1.5,
+                xPercent: -150,
                 ease: 'power2.out'
             }, "<")
             .to(heroTitle, {
@@ -50,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 duration: .6,
                 scale: 1.5,
                 ease: 'power2.out'
-            }, "-=.65")
+            }, "<")
             .fromTo('.nav-menu-dropdown-col.left, .nav-menu-dropdown-col.right', {
                 yPercent: -100,
             }, {
@@ -72,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 onComplete: () => {
                     nav.classList.add('ready');
                     document.querySelector('nav').classList.add('open');
+                    document.body.classList.add('menu-open');
 
                     // stop lenis - only when scrolling down
                     lenis.stop();
@@ -79,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 onReverseComplete: () => {
                     nav.classList.remove('ready');
                     document.querySelector('nav').classList.remove('open');
+                    document.body.classList.remove('menu-open');
                 }
             }, "-=.4");
     } else {

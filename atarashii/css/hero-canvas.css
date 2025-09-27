@@ -10,9 +10,10 @@
 }
 
 .canvas-container-inner {
-    width: 800px;
+    width: 600px;
     aspect-ratio: 4 / 3;
-    overflow: hidden;
+    overflow: visible;
+    border-radius: var(--radius);
 }
 
 canvas {
@@ -25,6 +26,7 @@ canvas {
 .hero-section {
     min-height: 100svh;
     position: relative;
+    mix-blend-mode: difference;
 }
 
 .hero-content {
@@ -35,19 +37,35 @@ canvas {
 .hero-section h1,
 .hero-subtitle {
     position: absolute;
+    color: var(--hero-text-color);
+    filter: blur(.05rem);
 }
 
 .hero-section h1 {
     bottom: var(--padding);
     left: 0;
     white-space: nowrap;
-    line-height: 120%;
+    line-height: 100%;
     font-size: clamp(3.5rem, 18vw, 18rem);
 }
 
+@media screen and (min-width: 992px) {
+    .hero-section h1 {
+        line-height: 78%;
+    }
+}
+
 .hero-subtitle {
-    top: var(--padding);
-    right: 0;
+    top: -0.5rem;
+    right: -40%;
+    transform-origin: 0%;
+    transform: rotate(90deg);
+    mix-blend-mode: difference;
+    color: #429ff6;
+}
+
+.hero-subtitle p {
+    font-size: 2rem;
 }
 
 /*

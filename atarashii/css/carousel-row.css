@@ -1,5 +1,7 @@
 .carousel_container {
     overflow-x: hidden;
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 600;
 }
 
 .carousel_container_inner {
@@ -23,4 +25,8 @@
 .carousel_row:not(.inverted) .carousel_row_inner {
     position: relative;
     left: -100%;
+}
+
+.carousel_row span {
+    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88)
 }

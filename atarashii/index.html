@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Work+Sans:wght@300&family=M+PLUS+1+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 
@@ -16,20 +22,107 @@
     <div class="nav-container">
         <nav>
             <div class="nav-menu-toggle">
-                MENU
+                <div class="nav-msg-container">
+                    <div class="nav-menu-msg">
+                        Pick your path
+                    </div>
+                    <div class="sub-jp mono">
+                        どこに行ってみたいですか？
+                    </div>
+                </div>
                 <!-- <div class="nav-menu-button menu-about"></div>
                 <div class="nav-menu-button menu-works"></div>
                 <div class="nav-menu-button menu-contact"></div> -->
             </div>
             <div class="nav-menu-dropdown-container">
+
+                <!-- LEFT COL -->
                 <div class="nav-menu-dropdown-col left" data-go-to="about">
-                    Left Col
+                    <div class="nav-menu-content">
+                        <h2>.1</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                                officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="19">
+                                <div class="carousel_row_inner">
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
+                <!-- CENTER COL -->
                 <div class="nav-menu-dropdown-col center" data-go-to="works">
-                    Center Col
+                    <div class="nav-menu-content">
+                        <h2>.2</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="18">
+                                <div class="carousel_row_inner">
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
+                <!-- RIGHT COL -->
                 <div class="nav-menu-dropdown-col right" data-go-to="contact">
-                    Right Col
+                    <div class="nav-menu-content">
+                        <h2>.3</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="25">
+                                <div class="carousel_row_inner">
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -37,10 +130,10 @@
 
     <div class="canvas-container">
         <div class="canvas-container-inner relative">
-            <canvas></canvas>
             <div class="hero-subtitle">
-                <p>PORTFOLIO '25</p>
+                <p class="mono">PORTFOLIO 年25</p>
             </div>
+            <canvas id="cloudCanvas"></canvas>
         </div>
     </div>
     <section class="hero-section">
@@ -123,7 +216,8 @@
                     <div class="works-content">
                         <div class="works-window-wrapper">
                             <div class="works-window-container">
-                                <div class="works-window-inner">
+                                <div class="window-bar-text mono">??%#$"?</div>
+                                <div class="works-window-inner mono">
                                     404 NOT FOUND
                                 </div>
                             </div>
@@ -131,7 +225,8 @@
 
                         <div class="works-window-wrapper">
                             <div class="works-window-container">
-                                <div class="works-window-inner">
+                                <div class="window-bar-text mono">@?@&#?</div>
+                                <div class="works-window-inner mono">
                                     404 NOT FOUND
                                 </div>
                             </div>
@@ -139,7 +234,8 @@
 
                         <div class="works-window-wrapper">
                             <div class="works-window-container">
-                                <div class="works-window-inner">
+                                <div class="window-bar-text mono">?ª/**/?</div>
+                                <div class="works-window-inner mono">
                                     404 NOT FOUND
                                 </div>
                             </div>
@@ -147,7 +243,8 @@
 
                         <div class="works-window-wrapper">
                             <div class="works-window-container">
-                                <div class="works-window-inner">
+                                <div class="window-bar-text mono">( ,,⩌'︿'⩌,,) ໒( ˵ •̀ □ •́ ˵ )</div>
+                                <div class="works-window-inner mono">
                                     404 NOT FOUND
                                 </div>
                             </div>
@@ -184,19 +281,19 @@
                 <div class="contact-content">
                     <div class="contact-text-container">
                         <h2>Let's have a chat and make a change.</h2>
-                        <p>いいですか？</p>
+                        <p class="mono">いいですか？</p>
                     </div>
                     <div class="contacts-row-container">
-                        <div class="social-btn">
+                        <div class="social-btn mono">
                             GitHub
                         </div>
-                        <div class="social-btn">
+                        <div class="social-btn mono">
                             Mail
                         </div>
-                        <div class="social-btn">
+                        <div class="social-btn mono">
                             Resume
                         </div>
-                        <div class="social-btn">
+                        <div class="social-btn mono">
                             LinkedIn
                         </div>
                     </div>
@@ -210,11 +307,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <script src="https://unpkg.com/split-type"></script>
+    <script type="module" src="./js/gsap.js"></script>
     <script type="module" src="./js/lenis.js"></script>
-    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/main2.js"></script>
+    <!-- <script type="module" src="./js/three-shape.js"></script> -->
     <script type="module" src="./js/menu.js"></script>
     <script type="module" src="./js/carousel-row.js"></script>
-    <script type="module" src="./js/gsap.js"></script>
 </body>
 
 </html>

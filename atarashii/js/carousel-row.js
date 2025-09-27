@@ -45,7 +45,88 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             },
             duration: duration,
-            ease: 'none'
+            ease: 'none',
+            paused: true
         });
+
+        // Store animation reference on wrapper for external control
+        wrapper.carouselAnimation = looper;
     });
+
+    // Add ScrollTriggers after a delay to ensure DOM is fully settled
+    setTimeout(() => {
+        // ScrollTrigger for About section carousel
+        ScrollTrigger.create({
+        trigger: "#about",
+        start: "top bottom",
+        end: "bottom top",
+        markers: true,
+        onEnter: () => {
+            const aboutCarousel = document.querySelector('#about .carousel_row');
+            if (aboutCarousel && aboutCarousel.carouselAnimation) {
+                aboutCarousel.carouselAnimation.play();
+            }
+        },
+        onLeave: () => {
+            const aboutCarousel = document.querySelector('#about .carousel_row');
+            if (aboutCarousel && aboutCarousel.carouselAnimation) {
+                aboutCarousel.carouselAnimation.pause();
+            }
+        },
+        onEnterBack: () => {
+            const aboutCarousel = document.querySelector('#about .carousel_row');
+            if (aboutCarousel && aboutCarousel.carouselAnimation) {
+                aboutCarousel.carouselAnimation.play();
+            }
+        },
+        onLeaveBack: () => {
+            const aboutCarousel = document.querySelector('#about .carousel_row');
+            if (aboutCarousel && aboutCarousel.carouselAnimation) {
+                aboutCarousel.carouselAnimation.pause();
+            }
+        }
+    });
+
+    // ScrollTrigger for Works section carousels
+    ScrollTrigger.create({
+        trigger: "#works",
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: () => {
+            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+            worksCarousels.forEach(carousel => {
+                if (carousel.carouselAnimation) {
+                    carousel.carouselAnimation.play();
+                }
+            });
+        },
+        onLeave: () => {
+            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+            worksCarousels.forEach(carousel => {
+                if (carousel.carouselAnimation) {
+                    carousel.carouselAnimation.pause();
+                }
+            });
+        },
+        onEnterBack: () => {
+            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+            worksCarousels.forEach(carousel => {
+                if (carousel.carouselAnimation) {
+                    carousel.carouselAnimation.play();
+                }
+            });
+        },
+        onLeaveBack: () => {
+            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+            worksCarousels.forEach(carousel => {
+                if (carousel.carouselAnimation) {
+                    carousel.carouselAnimation.pause();
+                }
+            });
+        }
+    });
+
+        // Refresh ScrollTrigger after setup
+        ScrollTrigger.refresh();
+    }, 2000);
 });

@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openMenu() {
         nav.classList.add('open');
+        document.body.classList.add('menu-open');
 
         // desktop menu reveal
         if (window.innerWidth > mobileBreakpoint) {
@@ -81,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, "<");
         }
 
+        // Start nav carousel animations
+        const navCarousels = document.querySelectorAll('.nav-menu-dropdown-col .carousel_row');
+        navCarousels.forEach(carousel => {
+            if (carousel.carouselAnimation) {
+                carousel.carouselAnimation.play();
+            }
+        });
+
         lenis.stop();
     }
 
@@ -95,7 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Reset opacity for next animation
                     gsap.set('.nav-menu-dropdown-col', { opacity: 1 });
 
+                    // Pause nav carousel animations
+                    const navCarousels = document.querySelectorAll('.nav-menu-dropdown-col .carousel_row');
+                    navCarousels.forEach(carousel => {
+                        if (carousel.carouselAnimation) {
+                            carousel.carouselAnimation.pause();
+                        }
+                    });
+
                     lenis.start();
+                    document.body.classList.remove('menu-open');
                 }
             });
     }
