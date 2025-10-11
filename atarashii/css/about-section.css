@@ -1,22 +1,103 @@
 #about {
+    height: auto;
+    min-height: 100svh;
     padding: 8rem 0 4rem;
 }
 
+.about-content {
+    width: 100%;
+}
+
 .about-text-content {
+    padding-top: 8rem;
     position: relative;
-    max-width: 58rem;
+    left: var(--padding);
+    /* max-width: 58rem; */
 }
 
 .about-text-content p {
-    max-width: 48rem;
+    max-width: 38rem;
+    font-size: 1.5rem;
+    color: var(--white);
 }
 
+/* About Top Row */
+.about-content-top-row {
+    display: flex;
+    flex-flow: row;
+    align-items: start;
+    gap: 8rem;
+    justify-content: space-between;
+}
+
+
+/* Graphics container */
+.about-graphics-container {
+    position: relative;
+    height: 14rem;
+    flex: 1;
+    overflow: clip;
+    mix-blend-mode: overlay;
+    backdrop-filter: blur(9px);
+    border: 2px var(--border-color) solid;
+    border-radius: var(--radius-lg);
+    -webkit-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
+    -moz-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
+    -o-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
+    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
+}
+
+.about-graphics {
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    opacity: .5;
+}
+
+/* Skillset list */
+.skills-list-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    max-width: 40%;
+    height: 100%;
+}
+
+.skills-list {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    align-items: start;
+    justify-content: end;
+}
+
+.about-quote-container {
+    padding-top: 2rem;
+    align-self: end;
+    max-width: 68rem;
+}
+
+.about-quote-container .quote {
+    line-height: 1;
+    text-align: right;
+    font-size: 8.5rem;
+}
+
+
+
+
+
+/* Card container - not in use */
 .about-card-container {
     position: absolute;
     bottom: 0;
     right: var(--padding-lg);
 }
 
+/* Carousel container - not in use */
 #about .carousel_container {
     padding-top: 4.5rem;
     max-width: 48rem;

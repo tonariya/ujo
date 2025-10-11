@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let i = 0; i < 2; i++) {
             let duplicate = wrapperInner.cloneNode(true);
-            wrapperInner .parentNode.insertBefore(duplicate, wrapperInner.nextSibling);
+            wrapperInner.parentNode.insertBefore(duplicate, wrapperInner.nextSibling);
         }
 
         let wrapperWidth = wrapperInner.offsetWidth;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // check for custom duration
-        if(wrapper.getAttribute('loopDuration') !== null) {
+        if (wrapper.getAttribute('loopDuration') !== null) {
             duration = wrapper.getAttribute('loopDuration');
         } else {
             duration = durationDefault;
@@ -55,76 +55,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add ScrollTriggers after a delay to ensure DOM is fully settled
     setTimeout(() => {
-        // ScrollTrigger for About section carousel
-        ScrollTrigger.create({
-        trigger: "#about",
-        start: "top bottom",
-        end: "bottom top",
-        markers: true,
-        onEnter: () => {
-            const aboutCarousel = document.querySelector('#about .carousel_row');
-            if (aboutCarousel && aboutCarousel.carouselAnimation) {
-                aboutCarousel.carouselAnimation.play();
-            }
-        },
-        onLeave: () => {
-            const aboutCarousel = document.querySelector('#about .carousel_row');
-            if (aboutCarousel && aboutCarousel.carouselAnimation) {
-                aboutCarousel.carouselAnimation.pause();
-            }
-        },
-        onEnterBack: () => {
-            const aboutCarousel = document.querySelector('#about .carousel_row');
-            if (aboutCarousel && aboutCarousel.carouselAnimation) {
-                aboutCarousel.carouselAnimation.play();
-            }
-        },
-        onLeaveBack: () => {
-            const aboutCarousel = document.querySelector('#about .carousel_row');
-            if (aboutCarousel && aboutCarousel.carouselAnimation) {
-                aboutCarousel.carouselAnimation.pause();
-            }
-        }
-    });
+        // // ScrollTrigger for About section carousel
+        // ScrollTrigger.create({
+        //     trigger: "#about",
+        //     start: "top bottom",
+        //     end: "bottom top",
+        //     // markers: true,
+        //     onEnter: () => {
+        //         const aboutCarousel = document.querySelector('#about .carousel_row');
+        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
+        //             aboutCarousel.carouselAnimation.play();
+        //         }
+        //     },
+        //     onLeave: () => {
+        //         const aboutCarousel = document.querySelector('#about .carousel_row');
+        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
+        //             aboutCarousel.carouselAnimation.pause();
+        //         }
+        //     },
+        //     onEnterBack: () => {
+        //         const aboutCarousel = document.querySelector('#about .carousel_row');
+        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
+        //             aboutCarousel.carouselAnimation.play();
+        //         }
+        //     },
+        //     onLeaveBack: () => {
+        //         const aboutCarousel = document.querySelector('#about .carousel_row');
+        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
+        //             aboutCarousel.carouselAnimation.pause();
+        //         }
+        //     }
+        // });
 
-    // ScrollTrigger for Works section carousels
-    ScrollTrigger.create({
-        trigger: "#works",
-        start: "top bottom",
-        end: "bottom top",
-        onEnter: () => {
-            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
-            worksCarousels.forEach(carousel => {
-                if (carousel.carouselAnimation) {
-                    carousel.carouselAnimation.play();
-                }
-            });
-        },
-        onLeave: () => {
-            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
-            worksCarousels.forEach(carousel => {
-                if (carousel.carouselAnimation) {
-                    carousel.carouselAnimation.pause();
-                }
-            });
-        },
-        onEnterBack: () => {
-            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
-            worksCarousels.forEach(carousel => {
-                if (carousel.carouselAnimation) {
-                    carousel.carouselAnimation.play();
-                }
-            });
-        },
-        onLeaveBack: () => {
-            const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
-            worksCarousels.forEach(carousel => {
-                if (carousel.carouselAnimation) {
-                    carousel.carouselAnimation.pause();
-                }
-            });
-        }
-    });
+        // ScrollTrigger for Works section carousels
+        ScrollTrigger.create({
+            trigger: "#works",
+            start: "top bottom",
+            end: "bottom top",
+            onEnter: () => {
+                const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+                worksCarousels.forEach(carousel => {
+                    if (carousel.carouselAnimation) {
+                        carousel.carouselAnimation.play();
+                    }
+                });
+            },
+            onLeave: () => {
+                const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+                worksCarousels.forEach(carousel => {
+                    if (carousel.carouselAnimation) {
+                        carousel.carouselAnimation.pause();
+                    }
+                });
+            },
+            onEnterBack: () => {
+                const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+                worksCarousels.forEach(carousel => {
+                    if (carousel.carouselAnimation) {
+                        carousel.carouselAnimation.play();
+                    }
+                });
+            },
+            onLeaveBack: () => {
+                const worksCarousels = document.querySelectorAll('.works-carousel .carousel_row');
+                worksCarousels.forEach(carousel => {
+                    if (carousel.carouselAnimation) {
+                        carousel.carouselAnimation.pause();
+                    }
+                });
+            }
+        });
 
         // Refresh ScrollTrigger after setup
         ScrollTrigger.refresh();

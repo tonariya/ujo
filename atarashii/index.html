@@ -21,7 +21,14 @@
 
     <div class="nav-container">
         <nav>
-            <div class="nav-menu-toggle">
+
+            <div class="nav-menu-toggle-wrapper">
+                <div class="nav-menu-toggle">
+                    <div class="canvas-container-inner shape-canvas-container">
+                        <canvas id="geometryCanvas"></canvas>
+                    </div>
+                </div>
+
                 <div class="nav-msg-container">
                     <div class="nav-menu-msg">
                         Pick your path
@@ -30,10 +37,8 @@
                         どこに行ってみたいですか？
                     </div>
                 </div>
-                <!-- <div class="nav-menu-button menu-about"></div>
-                <div class="nav-menu-button menu-works"></div>
-                <div class="nav-menu-button menu-contact"></div> -->
             </div>
+
             <div class="nav-menu-dropdown-container">
 
                 <!-- LEFT COL -->
@@ -129,12 +134,16 @@
     </div>
 
     <div class="canvas-container">
-        <div class="canvas-container-inner relative">
+        <div class="canvas-container-inner cloud-canvas-container relative">
             <div class="hero-subtitle">
                 <p class="mono">PORTFOLIO 年25</p>
             </div>
             <canvas id="cloudCanvas"></canvas>
         </div>
+
+        <!-- <div class="canvas-container-inner shape-canvas-container">
+            <canvas id="geometryCanvas"></canvas>
+        </div> -->
     </div>
     <section class="hero-section">
         <div class="padding-global">
@@ -147,16 +156,46 @@
     <section id="about" class="section-fade-in">
         <div class="padding-global">
             <div class="container relative">
-                <div class="about-text-content">
-                    <h2>BRIEF QUOTE HERE</h2>
-                    <p>Brief introductory text with a bit more info on who I am, where I'm from, what I do, what I like.
-                        It doesn't have to be too long, can't also be too short. I don't want to be a drag about it, but
-                        I can't let myself be unseen. That's something I've always struggled with my whole life.
-                        <br><br>
-                        You can write something good about yourself, I know you can.
-                    </p>
 
-                    <div class="carousel_container">
+                <h2 class="hide">About me</h2>
+
+                <div class="flex-col about-content">
+
+                    <div class="about-content-top-row">
+                        <div class="about-graphics-container">
+                            <div class="about-graphics">
+
+                            </div>
+                        </div>
+
+                        <div class="skills-list-container">
+                            <h3 class="overline mono">— skillset</h3>
+                            <ul class="skills-list">
+                                <li class="skills-item mono">gsap</li>
+                                <li class="skills-item mono">webflow</li>
+                                <li class="skills-item mono">html/css</li>
+                                <li class="skills-item mono">javascript</li>
+                                <li class="skills-item mono">next.js</li>
+                                <li class="skills-item mono">blender</li>
+                                <li class="skills-item mono">barba.js</li>
+                                <li class="skills-item mono">git</li>
+                                <li class="skills-item mono">three.js</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="about-text-content">
+                        <p>Brief introductory text with a bit more info on who I am, where I'm from, what I do, what I
+                            like.
+                            It doesn't have to be too long, can't also be too short. I don't want to be a drag about it,
+                            but
+                            I can't let myself be unseen. That's something I've always struggled with my whole life.
+                        </p>
+                        <br><br>
+                        <p>
+                            You can write something good about yourself, I know you can.
+                        </p>
+
+                        <!-- <div class="carousel_container">
                         <div class="carousel_container_inner">
 
                             <div class="carousel_row" loopDuration="14">
@@ -173,19 +212,25 @@
                             </div>
 
                         </div>
+                    </div> -->
                     </div>
-                </div>
 
-                <div class="flex-col about-card-container">
+                    <div class="empty"></div>
+
+                    <div class="about-quote-container">
+                        <div class="quote">BRIEF COOL AND/OR INSPIRING QUOTE HERE</div>
+                    </div>
+
+                    <!-- <div class="flex-col about-card-container">
                     <div class="card-container">
                         <div class="card-el">
                             <div class="card-front-container"></div>
                             <div class="card-back-container"></div>
                         </div>
                     </div>
+                </div> -->
+
                 </div>
-
-
             </div>
         </div>
     </section>
@@ -212,6 +257,8 @@
         <section id="works" class="works-section section-fade-in">
             <div class="padding-global">
                 <div class="container">
+
+                    <h2 class="hide">Works</h2>
 
                     <div class="works-content">
                         <div class="works-window-wrapper">
@@ -250,6 +297,43 @@
                             </div>
                         </div>
 
+
+                        <div class="works-window-wrapper gray">
+                            <div class="works-window-container">
+                                <div class="window-bar-text mono">??%#$"?</div>
+                                <div class="works-window-inner mono">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper gray">
+                            <div class="works-window-container">
+                                <div class="window-bar-text mono">??%#$"?</div>
+                                <div class="works-window-inner mono">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper gray">
+                            <div class="works-window-container">
+                                <div class="window-bar-text mono">??%#$"?</div>
+                                <div class="works-window-inner mono">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works-window-wrapper gray">
+                            <div class="works-window-container">
+                                <div class="window-bar-text mono">??%#$"?</div>
+                                <div class="works-window-inner mono">
+                                    404 NOT FOUND
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -278,6 +362,7 @@
     <section id="contact" class="section-fade-in">
         <div class="padding-global">
             <div class="container">
+
                 <div class="contact-content">
                     <div class="contact-text-container">
                         <h2>Let's have a chat and make a change.</h2>
@@ -310,7 +395,7 @@
     <script type="module" src="./js/gsap.js"></script>
     <script type="module" src="./js/lenis.js"></script>
     <script type="module" src="./js/main2.js"></script>
-    <!-- <script type="module" src="./js/three-shape.js"></script> -->
+    <script type="module" src="./js/three-shape.js"></script>
     <script type="module" src="./js/menu.js"></script>
     <script type="module" src="./js/carousel-row.js"></script>
 </body>

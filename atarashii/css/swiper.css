@@ -2,6 +2,10 @@
 .swiper {
     max-height: 100svh;
     overflow: hidden;
+    -webkit-transform: rotate(4deg);
+    -moz-transform: rotate(4deg);
+    -ms-transform: rotate(4deg);
+    -o-transform: rotate(4deg);
     transform: rotate(4deg);
 }
 
@@ -10,6 +14,10 @@
     flex-flow: column;
     /* gap: 1.25rem; */
     align-items: center;
+    -webkit-transform: rotate(-4deg);
+    -moz-transform: rotate(-4deg);
+    -ms-transform: rotate(-4deg);
+    -o-transform: rotate(-4deg);
     transform: rotate(-4deg);
 }
 
@@ -55,6 +63,10 @@
 }
 
 .swiper-slide-inner:hover {
+    -webkit-transform: translate(4.5rem, 2.25rem) scale(1.2);
+    -moz-transform: translate(4.5rem, 2.25rem) scale(1.2);
+    -ms-transform: translate(4.5rem, 2.25rem) scale(1.2);
+    -o-transform: translate(4.5rem, 2.25rem) scale(1.2);
     transform: translate(4.5rem, 2.25rem) scale(1.2);
     z-index: 5;
 }

@@ -31,42 +31,82 @@ nav.open .nav-menu-dropdown-container {
     pointer-events: all;
 }
 
-.nav-menu-toggle {
+.nav-menu-toggle-wrapper {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    /* gap: 1.5rem; */
     position: absolute;
-    left: calc(var(--padding) * 1.5);
-    bottom: calc(var(--padding) * 2.5);
-    background-color: beige;
-    /* width: min-content; */
+    left: calc(var(--padding) * .5);
+    bottom: var(--padding);
+    overflow: visible;
+    pointer-events: all;
+    z-index: 99;
+
+    /* width: 6.5rem; */
+    cursor: pointer;
+    overflow: hidden;
+    background-color: rgba(242, 242, 242, 0.05);
+    border-radius: 5rem;
+    padding-bottom: .25rem;
+    border: 2.5px var(--border-color-alt) solid;
+    transition: all 1s ease;
+    -webkit-backdrop-filter: blur(8px);
+    -moz-backdrop-filter: blur(8px);
+    -o-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+nav.ready .nav-menu-toggle-wrapper:hover {
+    background-color: #f2f2f22a;
+}
+
+.nav-menu-toggle {
     height: auto;
     pointer-events: none;
-    cursor: pointer;
-    /* opacity: 0; */
-    overflow: visible;
-    transition: opacity .25s ease;
-    z-index: 99;
+    /* transition: background-color .25s ease; */
+    
+    /* overflow: hidden; */
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 100%;
+    /* background-color: #f2f2f215;
+    border: 2.5px var(--border-color-alt) solid; */
 }
 
 .nav-msg-container {
     overflow: clip;
     width: 0;
+    max-width: 0;
+    opacity: 0;
+    padding: 0rem;
     /* background-color: green; */
     white-space: nowrap;
-    transition: width .25s ease-out;
+    transition: width 1s ease, padding .5s ease, max-width .25s ease;
 }
 
-.menu-open .nav-msg-container {
+.menu-clicked .nav-msg-container {
     width: auto;
+    max-width: max-content;
+    opacity: 1;
     display: flex;
     flex-flow: column;
-    gap: 1.5rem;
+    padding: .8rem .5rem;
+    padding-left: 1.5rem;
+    padding-right: 2rem;
+    gap: .8rem;
 }
 
 .nav-menu-msg {
     font-size: 2.5rem;
-    padding: .5rem 1.25rem;
+    line-height: 1;
+    /* padding: .5rem 1.25rem; */
     white-space: nowrap;
-    font-size: 4rem;
-    background-color: var(--white);
+    font-size: 3rem;
+
+    font-weight: 600;
+    color: var(--white);
+    filter: blur(.035rem);
 }
 
 .sub-jp {
@@ -74,11 +114,14 @@ nav.open .nav-menu-dropdown-container {
     white-space: nowrap;
     font-size: 1.25rem;
     text-align: right;
+    color: var(--white);
+    filter: blur(.035rem);
+    opacity: .9;
 }
 
-nav.open .nav-menu-toggle {
+/* nav.open .nav-menu-toggle-wrapper {
     background-color: red;
-}
+} */
 
 nav.ready .nav-menu-toggle {
     opacity: 1;
@@ -92,6 +135,9 @@ nav.ready .nav-menu-toggle {
     background-color: rgba(144, 199, 255, 0.199);
     border: 1px solid var(--white-alpha);
     border-radius: var(--radius);
+    -webkit-backdrop-filter: blur(8px);
+    -moz-backdrop-filter: blur(8px);
+    -o-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     transition-delay: 0s, 1s;
     transition: background-color .25s ease, backdrop-filter .25s ease;
@@ -112,6 +158,9 @@ nav.ready .nav-menu-toggle {
 
 .nav-menu-content h2 {
     color: var(--white);
+    -webkit-filter: blur(.05rem);
+    -moz-filter: blur(.05rem);
+    -o-filter: blur(.05rem);
     filter: blur(.05rem);
     opacity: .9;
 }
@@ -148,7 +197,15 @@ nav.ready .nav-menu-dropdown-col:hover .carousel_container {
 
 .nav-menu-dropdown-col .carousel_container_inner {
     width: 100svh;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
+    -webkit-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -o-transform-origin: 0% 0%;
     transform-origin: 0% 0%;
     position: absolute;
     left: calc(100% - 6.25vw);
@@ -156,6 +213,9 @@ nav.ready .nav-menu-dropdown-col:hover .carousel_container {
     font-size: 8rem;
     color: var(--white);
     opacity: .85;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
     filter: blur(1px);
 }
 

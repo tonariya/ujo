@@ -34,13 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!nav.classList.contains('open')) {
             // Animate in and add 'open' class
             openMenu();
+            document.body.classList.add('menu-clicked');
         } else {
             // Animate out and remove 'open' class
             closeMenu();
+            document.body.classList.remove('menu-clicked');
         }
     });
 
     function openMenu() {
+        console.log("Opening menu");
         nav.classList.add('open');
         document.body.classList.add('menu-open');
 
@@ -94,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeMenu() {
+        console.log("Closing menu")
         gsap.timeline()
             .to('.nav-menu-dropdown-container', {
                 opacity: 0,

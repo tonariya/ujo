@@ -28,5 +28,8 @@
 }
 
 .carousel_row span {
+    -webkit-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
+    -moz-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
+    -o-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
     filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88)
 }

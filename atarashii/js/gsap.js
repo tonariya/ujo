@@ -32,17 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         })
-        .from('.canvas-container-inner', {
-            xPercent: 40,
-            yPercent: -10,
-            duration: .8,
-            ease: 'power1.out'
-        })
-        .to('.canvas-container-inner', {
-            width: () => `${heroSection.offsetWidth}px`,
-            duration: 1,
-            ease: 'power2.out',
-        }, "-=.5")
+            .from('.cloud-canvas-container', {
+                xPercent: 40,
+                yPercent: -10,
+                duration: .8,
+                ease: 'power1.out'
+            })
+            .to('.cloud-canvas-container', {
+                width: () => `${heroSection.offsetWidth}px`,
+                duration: 1,
+                ease: 'power2.out',
+            }, "-=.5")
             .to(heroSubtitle, {
                 delay: .1,
                 filter: 'blur(8px)',
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             }
-        }).to('.canvas-container-inner', {
+        }).to('.cloud-canvas-container', {
             height: () => `${heroSection.offsetHeight}px`,
             duration: 1,
             ease: 'power2.out',
@@ -214,48 +214,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // about reveal
-    const aboutH2 = document.querySelector('.about-text-content h2');
-    const aboutP = document.querySelector('.about-text-content p');
-    const splitAboutH2 = new SplitType(aboutH2, { types: 'words,lines' });
-    const splitAboutP = new SplitType(aboutP, { types: 'words,lines' });
+    setTimeout(() => {
+        const aboutH2 = document.querySelector('.about-text-content h2');
+        const aboutP = document.querySelectorAll('.about-text-content p');
+        const splitAboutH2 = new SplitType(aboutH2, { types: 'words,lines' });
+        const splitAboutP = new SplitType(aboutP, { types: 'words,lines' });
 
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: '.about-text-content',
-            start: 'top 35%',
-            scrub: false,
-            toggleActions: 'play none none reverse'
-        }
-    })
-        .from('.about-text-content', {
-            scale: 1.8,
-            yPercent: 25,
-            xPercent: -50,
-            filter: 'blur(14px)',
-            duration: 2,
-            ease: 'power3.out'
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top 35%',
+                scrub: false,
+                // markers: true,
+                toggleActions: 'play none none reverse'
+            }
         })
-        .from(splitAboutH2.words, {
-            duration: 1,
-            yPercent: 50,
-            opacity: 0,
-            stagger: 0.1,
-            ease: 'power3.out'
-        }, '<')
-        .from(splitAboutP.words, {
-            delay: .1,
-            yPercent: 50,
-            opacity: 0,
-            duration: .8,
-            stagger: 0.01,
-            ease: 'power3.out'
-        }, "<")
-        .from('#about .carousel_container', {
-            yPercent: 80,
-            opacity: 0,
-            duration: 1.5,
-            ease: 'power3.out'
-        }, "-=.8");
+            .from('.about-text-content', {
+                scale: 1.8,
+                yPercent: 25,
+                xPercent: -50,
+                filter: 'blur(14px)',
+                duration: 2,
+                ease: 'power3.out'
+            })
+            .from(splitAboutH2.words, {
+                duration: 1,
+                yPercent: 50,
+                opacity: 0,
+                stagger: 0.1,
+                ease: 'power3.out'
+            }, '<')
+            .from(splitAboutP.words, {
+                delay: .1,
+                yPercent: 50,
+                opacity: 0,
+                duration: .8,
+                stagger: 0.01,
+                ease: 'power3.out'
+            }, "<");
+            // .from('#about .carousel_container', {
+            //     yPercent: 80,
+            //     opacity: 0,
+            //     duration: 1.5,
+            //     ease: 'power3.out'
+            // }, "-=.8");
+    }, 200);
 
 
     // works reveal
@@ -269,23 +272,14 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleActions: 'play none none reverse'
         }
     })
-        .from('.works-carousel', {
-            // scale: 1.5,
-            delay: .25,
-            yPercent: 100,
-            opacity: 0,
-            filter: 'blur(8px)',
-            duration: 1,
-            ease: 'power2.out'
-        })
         .to(worksContainers, {
             opacity: 0,
-            duration: 0.025,
+            duration: 0.02,
             stagger: 0.02,
             repeat: 5,
             yoyo: true,
             ease: 'linear'
-        }, "<")
+        })
         .from(worksContainers, {
             delay: 0.2,
             yPercent: () => {
@@ -295,9 +289,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 return Math.random(-50, 50)
             },
             width: '0px',
-            duration: 0.4,
+            duration: 0.25,
             stagger: 0.05,
-            ease: 'power2.inOut'
+            ease: 'power3.inOut'
+        }, "-=.5")
+        .fromTo('.works-carousel', {
+            // scale: 1.5,
+            yPercent: 100,
+            opacity: 0,
+            filter: 'blur(8px)',
+        }, {
+            yPercent: 0,
+            opacity: 1,
+            filter: 'none',
+            delay: .2,
+            duration: 1,
+            ease: 'power2.out'
         }, "<");
 
 

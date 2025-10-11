@@ -17,6 +17,9 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
     backface-visibility: hidden;
     transition: transform 0.6s ease-in-out;
     border-radius: 12px;
@@ -28,11 +31,19 @@
 
 .card-front-container {
     background-color: #0066ff;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
     transform: rotateY(0deg);
 }
 
 .card-back-container {
     background-color: #666666;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
     transform: rotateY(180deg);
     color: white;
     font-size: 1.2rem;
@@ -45,14 +56,26 @@
 }
 
 .card-el:hover .card-front-container {
+    -webkit-transform: rotateY(-180deg) rotateZ(-5deg);
+    -moz-transform: rotateY(-180deg) rotateZ(-5deg);
+    -ms-transform: rotateY(-180deg) rotateZ(-5deg);
+    -o-transform: rotateY(-180deg) rotateZ(-5deg);
     transform: rotateY(-180deg) rotateZ(-5deg);
 }
 
 .card-el:hover .card-back-container {
+    -webkit-transform: rotateY(0deg) rotateZ(-5deg);
+    -moz-transform: rotateY(0deg) rotateZ(-5deg);
+    -ms-transform: rotateY(0deg) rotateZ(-5deg);
+    -o-transform: rotateY(0deg) rotateZ(-5deg);
     transform: rotateY(0deg) rotateZ(-5deg);
 }
 
 .card-el:hover {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
