@@ -1,0 +1,49 @@
+.cursor-follower-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.cursor-follower {
+    position: absolute;
+    opacity: .8;
+}
+
+.cursor-follower-inner {
+    position: relative;
+    width: 1rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    border: 1px var(--white) solid;
+    animation: rotate360 3s linear infinite;
+}
+
+.cursor-follower-inner.fade {
+    position: absolute;
+    top: 0;
+    transform-origin: center;
+}
+
+.cursor-follower-inner:not(.fade)::before {
+    content: '';
+    width: .25rem;
+    height: .25rem;
+    background-color: var(--white);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

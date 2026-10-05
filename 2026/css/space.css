@@ -1,0 +1,314 @@
+/*
+*   SPACE: the layers that make the page one continuous sky
+*/
+
+/* Film grain: risograph texture over everything */
+.grain {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: .16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift .9s steps(6) infinite;
+}
+
+@keyframes grain-shift {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-4%, 3%); }
+    40% { transform: translate(3%, -5%); }
+    60% { transform: translate(-2%, 6%); }
+    80% { transform: translate(5%, -2%); }
+    100% { transform: translate(0, 0); }
+}
+
+
+/* Foreground clouds: soft banks drifting in front of the content */
+.fg-clouds {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+body.in-sky .fg-clouds {
+    opacity: 1;
+}
+
+body.menu-open .fg-clouds {
+    opacity: 0;
+}
+
+.fg-cloud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90vw;
+    height: 55vh;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+            rgba(236, 241, 255, .55) 0%,
+            rgba(214, 226, 252, .3) 35%,
+            rgba(200, 216, 250, .1) 55%,
+            transparent 70%);
+    will-change: transform;
+}
+
+.fg-cloud:nth-child(2) {
+    width: 70vw;
+    height: 40vh;
+}
+
+.fg-cloud:nth-child(3) {
+    width: 110vw;
+    height: 65vh;
+}
+
+
+/* HUD: status bar along the top edge */
+.hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: var(--padding-y) var(--padding);
+    font-size: .875rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    pointer-events: none;
+    transition: color .8s ease, opacity .5s ease;
+}
+
+body.in-sky .hud {
+    color: var(--white);
+}
+
+body.menu-open .hud {
+    opacity: .35;
+}
+
+.hud::after {
+    content: '';
+    position: absolute;
+    left: var(--padding);
+    right: var(--padding);
+    bottom: 0;
+    height: 1px;
+    background-color: currentColor;
+    opacity: .3;
+}
+
+.hud-dim {
+    opacity: .6;
+}
+
+.hud-center {
+    text-align: center;
+}
+
+.hud-right {
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.hud-clock {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* the one red thing on screen */
+.hud-rec {
+    width: .45rem;
+    height: .45rem;
+    border-radius: 50%;
+    background-color: var(--accent);
+    animation: rec-blink 1.6s steps(2, jump-none) infinite;
+}
+
+@keyframes rec-blink {
+    from { opacity: 1; }
+    to { opacity: .15; }
+}
+
+
+/* Area labels: mark where you are without drawing borders */
+.area-label {
+    position: absolute;
+    top: -6rem;
+    left: 0;
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    font-size: .875rem;
+    letter-spacing: .12em;
+    color: var(--white);
+    opacity: .85;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.area-label::after {
+    content: '';
+    width: 6rem;
+    height: 1px;
+    background-color: currentColor;
+    opacity: .5;
+    align-self: center;
+}
+
+.area-num {
+    color: var(--accent);
+}
+
+.area-jp {
+    opacity: .65;
+    letter-spacing: 0;
+}
+
+#works .area-label {
+    top: -2rem;
+    left: auto;
+    right: 0;
+}
+
+#contact .area-label {
+    top: -10rem;
+    left: 30%;
+}
+
+
+/* Touchdown: the bottom of the descent */
+.touchdown {
+    position: relative;
+    padding: 40vh 0 var(--padding);
+    color: var(--white);
+    transition: opacity .5s ease .25s;
+}
+
+.touchdown .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem 2rem;
+    align-items: end;
+}
+
+.touchdown-alt {
+    font-size: clamp(3rem, 10vw, 9rem);
+    line-height: 1;
+    opacity: .3;
+    grid-column: 1 / -1;
+}
+
+.touchdown-msg {
+    font-size: 1.25rem;
+}
+
+.touchdown-back {
+    justify-self: end;
+    font-family: "M PLUS 1 Code", monospace;
+    font-size: 1.25rem;
+    color: var(--white);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: .25rem;
+    transition: color .25s ease;
+}
+
+.touchdown-back:hover,
+.touchdown-back:focus-visible {
+    color: var(--accent);
+}
+
+.touchdown-copy {
+    grid-column: 1 / -1;
+    font-size: .75rem;
+    opacity: .6;
+    text-align: right;
+    padding-top: 6rem;
+}
+
+
+/*
+*   FALLBACKS: no JavaScript, or no WebGL: static sky, content stays readable
+*/
+.no-js body,
+.no-webgl body {
+    background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)) fixed;
+}
+
+.no-js .canvas-container,
+.no-js .hud,
+.no-js .fg-clouds,
+.no-js .nav-container,
+.no-js .cursor-follower-container,
+.no-webgl .cloud-canvas-container {
+    display: none;
+}
+
+
+/*
+*   REDUCED MOTION
+*/
+@media (prefers-reduced-motion: reduce) {
+    .grain,
+    .about-graphics,
+    .hud-rec {
+        animation: none;
+    }
+
+    .fg-clouds {
+        display: none;
+    }
+}
+
+
+/*
+*   MOBILE
+*/
+@media screen and (max-width: 991px) {
+    .hud {
+        grid-template-columns: 1fr auto;
+        padding: var(--padding-y) var(--padding-sm);
+        font-size: .75rem;
+    }
+
+    .hud::after {
+        left: var(--padding-sm);
+        right: var(--padding-sm);
+    }
+
+    .hud-center,
+    .hud-alt {
+        display: none;
+    }
+
+    .area-label,
+    #works .area-label,
+    #contact .area-label {
+        top: -3rem;
+        left: 0;
+        right: auto;
+    }
+
+    .touchdown .container {
+        grid-template-columns: 1fr;
+    }
+
+    .touchdown-back {
+        justify-self: start;
+    }
+}

@@ -1,0 +1,133 @@
+.canvas-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-container-inner {
+    width: 600px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.shape-canvas-container {
+    /* position: fixed; */
+    top: 0;
+    right: 0;
+    /* width: 200px;
+    height: 200px; */
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    filter: blur(1px);
+    /* opacity: .9; */
+}
+
+#geometryCanvas {
+    background: transparent !important;
+}
+
+canvas#cloudCanvas {
+    width: 102vw !important;
+    height: 102vh !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* position: fixed;
+    inset: 0; */
+}
+
+canvas#geometryCanvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.hero-section {
+    height: 100svh;
+    overflow: clip;
+    position: relative;
+    -webkit-mix-blend-mode: difference;
+    -moz-mix-blend-mode: difference;
+    -o-mix-blend-mode: difference;
+    mix-blend-mode: difference;
+}
+
+.hero-content {
+    display: flex;
+    flex-flow: column;
+}
+
+.hero-section h1,
+.hero-subtitle {
+    position: absolute;
+    color: var(--hero-text-color);
+    -webkit-filter: blur(.05rem);
+    -moz-filter: blur(.05rem);
+    -o-filter: blur(.05rem);
+    filter: blur(.05rem);
+}
+
+.hero-section h1 {
+    bottom: var(--padding);
+    left: 0;
+    white-space: nowrap;
+    line-height: 100%;
+    font-size: clamp(3.5rem, 18vw, 18rem);
+}
+
+@media screen and (min-width: 992px) {
+    .hero-section h1 {
+        line-height: 78%;
+    }
+}
+
+.hero-subtitle {
+    /* top: -2.5rem;
+    right: -78.5%; */
+    -webkit-transform-origin: 0%;
+    -moz-transform-origin: 0%;
+    -ms-transform-origin: 0%;
+    -o-transform-origin: 0%;
+    transform-origin: 0%;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-mix-blend-mode: difference;
+    -moz-mix-blend-mode: difference;
+    -o-mix-blend-mode: difference;
+    mix-blend-mode: difference;
+    color: #429ff6;
+    z-index: 10;
+
+    position: fixed;
+    top: 13.5rem;
+    right: -3%;
+}
+
+.hero-subtitle p {
+    font-size: 2rem;
+}
+
+/*
+*   MOBILE
+*/
+
+@media screen and (max-width: 991px) {
+    /* explicit size: the canvas inside is absolutely positioned, so auto width collapsed to 0 */
+    .cloud-canvas-container {
+        width: 80vw;
+        height: 55svh;
+        aspect-ratio: unset;
+    }
+}

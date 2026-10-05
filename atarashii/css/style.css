@@ -231,7 +231,7 @@ body.menu-open .works-carousel {
 }
 
 .padding-global {
-    padding: var(--padding);
+    padding: var(--padding) 8rem var(--padding) 12.5rem;
     /* padding-top: 31.25vw; */
 }
 
@@ -379,6 +379,16 @@ body.menu-open .works-carousel {
 .line {
     position: relative;
     overflow-y: clip;
+}
+
+/* Firefox: disable drop-shadow */
+@-moz-document url-prefix() {
+    h1, h2, h3, h4, h5, .quote {
+        filter: blur(.035rem);
+    }
+    .social-btn, .skills-item {
+        filter: blur(.035rem) !important;
+    }
 }
 
 /* Works Window */

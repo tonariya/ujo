@@ -1,0 +1,149 @@
+#about {
+    padding: 35vh 0 10vh;
+}
+
+.about-content {
+    width: 100%;
+    gap: 6rem;
+}
+
+.about-text-content {
+    position: relative;
+    left: var(--padding);
+    display: flex;
+    flex-flow: column;
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.about-text-content p {
+    max-width: 38rem;
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.about-text-content p:first-child {
+    text-indent: 1rem;
+}
+
+/* split words are inline-blocks and would each inherit the indent */
+.about-text-content .word {
+    text-indent: 0;
+}
+
+/* About Top Row: off-grid, the window floats left and low, the skills high and right */
+.about-content-top-row {
+    display: flex;
+    flex-flow: row;
+    align-items: start;
+    gap: 8rem;
+    justify-content: space-between;
+}
+
+.about-graphics-float {
+    flex: 1;
+    max-width: 34rem;
+    margin-top: 12rem;
+    margin-left: -4rem;
+}
+
+
+/* Graphics container: a small system window holding a grainy sun */
+.about-graphics-container {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    padding: .5rem;
+    padding-top: 2rem;
+    overflow: clip;
+    background-color: rgba(221, 222, 224, 0.2);
+    border: 1px #f2f2f28c solid;
+    border-radius: .4rem;
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+}
+
+.about-graphics-container .window-bar-text {
+    color: var(--white);
+    opacity: .8;
+}
+
+.about-graphics {
+    width: 100%;
+    height: 100%;
+    border-radius: .2rem;
+    background-color: #446cd7;
+    background-image:
+        radial-gradient(circle, rgba(242, 242, 242, .55) 1px, transparent 1.6px),
+        radial-gradient(circle at 62% 42%, #ffffff 0 9%, rgba(255, 255, 255, .55) 16%, rgba(255, 255, 255, .12) 32%, transparent 52%);
+    background-size: 7px 7px, 100% 100%;
+    animation: sun-breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes sun-breathe {
+    from {
+        background-position: 0 0, -2% 2%;
+    }
+
+    to {
+        background-position: 0 0, 3% -2%;
+    }
+}
+
+/* Skillset list */
+.skills-list-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    max-width: 40%;
+}
+
+.skills-list {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    align-items: start;
+    justify-content: end;
+}
+
+.about-quote-container {
+    margin-top: 20vh;
+    align-self: end;
+    max-width: 68rem;
+}
+
+.about-quote-container .quote {
+    line-height: 1;
+    text-align: right;
+    font-size: clamp(3rem, 8vw, 8.5rem);
+}
+
+/*
+*   MOBILE
+*/
+@media screen and (max-width: 991px) {
+    .about-content-top-row {
+        flex-flow: column;
+        gap: 3rem;
+    }
+
+    .about-graphics-float {
+        width: 80%;
+        margin: 0;
+    }
+
+    .skills-list-container {
+        max-width: 100%;
+        align-self: end;
+    }
+
+    .about-text-content {
+        left: 0;
+    }
+
+    .about-text-content p {
+        font-size: 1.15rem;
+    }
+}

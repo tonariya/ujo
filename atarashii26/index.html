@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Work+Sans:wght@300&family=M+PLUS+1+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/cursor.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script defer src="https://unpkg.com/split-type"></script>
+
+    <title>Space Galaxy Scene</title>
+</head>
+
+<body>
+
+    <div class="cursor-follower-container">
+        <div class="cursor-follower">
+            <div class="cursor-follower-inner"></div>
+            <div class="cursor-follower-inner fade"></div>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <nav>
+
+            <div class="nav-menu-toggle-wrapper">
+                <div class="nav-menu-toggle">
+                    <div class="canvas-container-inner shape-canvas-container">
+                        <canvas id="geometryCanvas"></canvas>
+                    </div>
+                </div>
+
+                <div class="nav-msg-container">
+                    <div class="nav-msg-container-inner">
+                        <div class="nav-menu-msg">
+                            Pick your path
+                        </div>
+                        <div class="sub-jp mono">
+                            どこに行ってみたいですか？
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-menu-dropdown-container">
+
+                <!-- LEFT COL -->
+                <div class="nav-menu-dropdown-col left" data-go-to="about">
+                    <div class="nav-menu-content">
+                        <h2>.1</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                                officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="25">
+                                <div class="carousel_row_inner">
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                    <span>ABOUT</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER COL -->
+                <div class="nav-menu-dropdown-col center" data-go-to="works">
+                    <div class="nav-menu-content">
+                        <h2>.2</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="25">
+                                <div class="carousel_row_inner">
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                    <span>WORKS</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COL -->
+                <div class="nav-menu-dropdown-col right" data-go-to="contact">
+                    <div class="nav-menu-content">
+                        <h2>.3</h2>
+
+                        <div class="nav-menu-option-desc">
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row inverted" loopDuration="25">
+                                <div class="carousel_row_inner">
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                    <span>CONTACT</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="canvas-container">
+        <div class="relative">
+            <div class="hero-subtitle">
+                <p class="mono">PORTFOLIO 年25</p>
+            </div>
+            <div class="canvas-container-inner cloud-canvas-container relative">
+                <canvas id="cloudCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- <div class="canvas-container-inner shape-canvas-container">
+            <canvas id="geometryCanvas"></canvas>
+        </div> -->
+    </div>
+    <section class="hero-section">
+        <div class="padding-global">
+            <div class="container relative">
+                <h1>B_UJU</h1>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-fade-in relative">
+        <div class="padding-global">
+            <div class="container">
+
+                <h2 class="hide">About me</h2>
+
+                <div class="flex-col about-content">
+
+                    <div class="about-content-top-row">
+                        <!-- <div class="about-graphics-container">
+                            <div class="about-graphics">
+
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="about-text-content">
+                        <div class="about-text-content-col">
+                            <div class="skills-list-container">
+                                <h3 class="overline mono">— skillset</h3>
+                                <ul class="skills-list">
+                                    <li class="skills-item mono">gsap</li>
+                                    <li class="skills-item mono">webflow</li>
+                                    <li class="skills-item mono">html/css</li>
+                                    <li class="skills-item mono">javascript</li>
+                                    <li class="skills-item mono">next.js</li>
+                                    <li class="skills-item mono">blender</li>
+                                    <li class="skills-item mono">barba.js</li>
+                                    <li class="skills-item mono">git</li>
+                                    <li class="skills-item mono">three.js</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="about-text-content-col">
+                            <div class="about-text-content-row">
+                                <h3 class="skillset-text overline mono">.1</h3>
+                                <p>Brief introductory text with a bit more info on who I am, where I'm from, what I do,
+                                    what
+                                    I like.
+                                    It doesn't have to be too long, can't also be too short. I don't want to be a drag
+                                    about
+                                    it,
+                                    but I can't let myself be unseen. That's something I've always struggled with my
+                                    whole
+                                    life.
+                                </p>
+                            </div>
+                            <div class="about-text-content-row">
+                                <h3 class="skillset-text overline mono">.2</h3>
+                                <p>
+                                    You can write something good about yourself, I know you can. This one's short but
+                                    it's
+                                    ok.
+                                </p>
+                            </div>
+                            <div class="about-text-content-row">
+                                <h3 class="skillset-text overline mono">.3</h3>
+                                <p>
+                                    Lorem ipsum and however that default latin text goes etc etc. More text here just to
+                                    take a bit more of space, for preview's sake.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div class="carousel_container">
+                        <div class="carousel_container_inner">
+
+                            <div class="carousel_row" loopDuration="14">
+                                <div class="carousel_row_inner">
+                                    <span>GSAP</span>
+                                    <span>Webflow</span>
+                                    <span>Javascript</span>
+                                    <span>Next.Js</span>
+                                    <span>Blender</span>
+                                    <span>Barba.Js</span>
+                                    <span>Git</span>
+                                    <span>THREE.Js</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+                    </div>
+
+                    <div class="empty"></div>
+
+                    <div class="about-quote-container">
+                        <div class="quote">BRIEF COOL AND/OR INSPIRING QUOTE HERE</div>
+                    </div>
+
+                    <!-- <div class="flex-col about-card-container">
+                    <div class="card-container">
+                        <div class="card-el">
+                            <div class="card-front-container"></div>
+                            <div class="card-back-container"></div>
+                        </div>
+                    </div>
+                </div> -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="empty"></div>
+
+    <div class="relative">
+        <div class="carousel_container works-carousel top">
+            <div class="carousel_container_inner">
+
+                <div class="carousel_row inverted">
+                    <div class="carousel_row_inner">
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <section id="works" class="works-section section-fade-in">
+            <div class="padding-global">
+                <div class="container">
+
+                    <h2 class="hide">Works</h2>
+
+                    <div class="works-content">
+
+                        <!-- LEFT: Floating preview window -->
+                        <div class="works-col works-col--preview">
+                            <div class="works-window-wrapper works-window-wrapper--featured" id="worksFloatingWindow">
+                                <div class="works-window-container">
+
+                                    <div class="works-window-bar">
+                                        <div class="works-window-dots">
+                                            <span class="works-window-dot works-window-dot--red"></span>
+                                            <span class="works-window-dot works-window-dot--yellow"></span>
+                                            <span class="works-window-dot works-window-dot--green"></span>
+                                        </div>
+                                        <span class="window-bar-text mono" id="worksWindowTitle">preview.exe</span>
+                                    </div>
+
+                                    <div class="works-window-inner">
+
+                                        <!-- Default idle panel -->
+                                        <div class="works-panel works-panel--active" data-panel="default">
+                                            <div class="works-panel-icon mono">⬡</div>
+                                            <p class="works-panel-hint mono">hover a work title</p>
+                                        </div>
+
+                                        <!-- Project panels -->
+                                        <div class="works-panel" data-panel="1">
+                                            <span class="works-panel-tag mono">001 — Brand &amp; Identity</span>
+                                            <div class="works-panel-divider"></div>
+                                            <p class="works-panel-title">Orbis</p>
+                                            <p class="works-panel-desc">Full brand identity redesign covering logo
+                                                system, type hierarchy, and motion language for a design-led startup.
+                                            </p>
+                                            <div class="works-panel-pills">
+                                                <span class="works-pill mono">Figma</span>
+                                                <span class="works-pill mono">After Effects</span>
+                                                <span class="works-pill mono">Branding</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="works-panel" data-panel="2">
+                                            <span class="works-panel-tag mono">002 — Web Development</span>
+                                            <div class="works-panel-divider"></div>
+                                            <p class="works-panel-title">Void</p>
+                                            <p class="works-panel-desc">Interactive portfolio site with WebGL shaders,
+                                                GSAP scroll animations, and a custom cursor system.</p>
+                                            <div class="works-panel-pills">
+                                                <span class="works-pill mono">Three.js</span>
+                                                <span class="works-pill mono">GSAP</span>
+                                                <span class="works-pill mono">WebGL</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="works-panel" data-panel="3">
+                                            <span class="works-panel-tag mono">003 — Motion Design</span>
+                                            <div class="works-panel-divider"></div>
+                                            <p class="works-panel-title">Nebula</p>
+                                            <p class="works-panel-desc">Generative motion system for a music label's
+                                                visual identity — reactive to audio data in real time.</p>
+                                            <div class="works-panel-pills">
+                                                <span class="works-pill mono">After Effects</span>
+                                                <span class="works-pill mono">p5.js</span>
+                                                <span class="works-pill mono">Motion</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="works-panel" data-panel="4">
+                                            <span class="works-panel-tag mono">004 — UI / UX</span>
+                                            <div class="works-panel-divider"></div>
+                                            <p class="works-panel-title">Aether</p>
+                                            <p class="works-panel-desc">End-to-end product design for a SaaS dashboard —
+                                                component library, design tokens, and interactive prototype.</p>
+                                            <div class="works-panel-pills">
+                                                <span class="works-pill mono">Figma</span>
+                                                <span class="works-pill mono">Design Systems</span>
+                                                <span class="works-pill mono">UX</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT: Work list -->
+                        <div class="works-col works-col--list">
+                            <ul class="works-list" id="worksList">
+                                <li class="works-list-item" data-index="1">
+                                    <span class="works-item-num mono">001</span>
+                                    <div class="works-item-body">
+                                        <span class="works-item-title">Orbis</span>
+                                        <span class="works-item-cat mono">Brand &amp; Identity</span>
+                                    </div>
+                                </li>
+                                <li class="works-list-item" data-index="2">
+                                    <span class="works-item-num mono">002</span>
+                                    <div class="works-item-body">
+                                        <span class="works-item-title">Void</span>
+                                        <span class="works-item-cat mono">Web Development</span>
+                                    </div>
+                                </li>
+                                <li class="works-list-item" data-index="3">
+                                    <span class="works-item-num mono">003</span>
+                                    <div class="works-item-body">
+                                        <span class="works-item-title">Nebula</span>
+                                        <span class="works-item-cat mono">Motion Design</span>
+                                    </div>
+                                </li>
+                                <li class="works-list-item" data-index="4">
+                                    <span class="works-item-num mono">004</span>
+                                    <div class="works-item-body">
+                                        <span class="works-item-title">Aether</span>
+                                        <span class="works-item-cat mono">UI / UX Design</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <div class="carousel_container works-carousel bottom">
+            <div class="carousel_container_inner">
+
+                <div class="carousel_row">
+                    <div class="carousel_row_inner">
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                        <span>Coming Soon</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="empty"></div>
+
+    <section id="contact" class="section-fade-in">
+        <div class="padding-global">
+            <div class="container">
+
+                <div class="contact-content">
+                    <div class="contact-text-container">
+                        <h2>Let's have a chat and make a change.</h2>
+                        <p class="mono">いいですか？</p>
+                    </div>
+                    <div class="contacts-row-container">
+                        <div class="social-btn mono">
+                            GitHub
+                        </div>
+                        <div class="social-btn mono">
+                            Mail
+                        </div>
+                        <div class="social-btn mono">
+                            Resume
+                        </div>
+                        <div class="social-btn mono">
+                            LinkedIn
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="./js/cursor.js"></script>
+    <script type="module" src="./js/works.js"></script>
+    <script type="module" src="./js/gsap.js"></script>
+    <script type="module" src="./js/lenis.js"></script>
+    <script type="module" src="./js/main2.js"></script>
+    <script type="module" src="./js/three-shape.js"></script>
+    <script type="module" src="./js/menu.js"></script>
+    <script type="module" src="./js/carousel-row.js"></script>
+</body>
+
+</html>

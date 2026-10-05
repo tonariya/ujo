@@ -20,16 +20,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 end: '+=500%',
                 scrub: true,
                 pin: true,
-                onEnter: () => {
-                    document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
-                        anchor.classList.remove('ready');
-                    });
-                },
-                onEnterBack: () => {
-                    document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
-                        anchor.classList.remove('ready');
-                    });
-                }
+                // onEnter: () => {
+                //     document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
+                //         anchor.classList.remove('ready');
+                //         document.body.classList.add('toggle-btn-expanded');
+                //         document.body.classList.add('menu-open');
+                //     });
+                // },
+                // onEnterBack: () => {
+                //     document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
+                //         anchor.classList.remove('ready');
+                //         document.body.classList.remove('toggle-btn-expanded');
+                //         document.body.classList.remove('menu-open');
+                //     });
+                // }
             }
         })
             .from('.cloud-canvas-container', {
@@ -39,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 ease: 'power1.out'
             })
             .to('.cloud-canvas-container', {
-                width: () => `${heroSection.offsetWidth}px`,
+                width: () => `${heroSection.offsetWidth+10}px`,
+                height: () => `${heroSection.offsetHeight+10}px`,
                 duration: 1,
                 ease: 'power2.out',
             }, "-=.5")
@@ -49,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 opacity: '0',
                 duration: .8,
                 scale: 1.5,
-                xPercent: -150,
+                // xPercent: -150,
                 ease: 'power2.out'
             }, "<")
             .to(heroTitle, {
@@ -79,16 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 ease: 'none',
                 onComplete: () => {
                     nav.classList.add('ready');
-                    document.querySelector('nav').classList.add('open');
-                    document.body.classList.add('menu-open');
-
-                    // stop lenis - only when scrolling down
-                    lenis.stop();
+                    window.openMenu();
                 },
                 onReverseComplete: () => {
                     nav.classList.remove('ready');
-                    document.querySelector('nav').classList.remove('open');
-                    document.body.classList.remove('menu-open');
+                    window.closeMenu();
                 }
             }, "-=.4");
     } else {
@@ -151,14 +151,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 ease: 'none',
                 onComplete: () => {
                     nav.classList.add('ready');
-                    document.querySelector('nav').classList.add('open');
-
-                    // stop lenis - only when scrolling down
-                    lenis.stop();
+                    window.openMenu();
                 },
                 onReverseComplete: () => {
                     nav.classList.remove('ready');
-                    document.querySelector('nav').classList.remove('open');
+                    window.closeMenu();
                 }
             }, "<");
     }
@@ -215,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // about reveal
     setTimeout(() => {
-        const aboutH2 = document.querySelector('.about-text-content h2');
+        const aboutH2 = document.querySelector('#about h2');
         const aboutP = document.querySelectorAll('.about-text-content p');
         const splitAboutH2 = new SplitType(aboutH2, { types: 'words,lines' });
         const splitAboutP = new SplitType(aboutP, { types: 'words,lines' });
@@ -252,12 +249,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 stagger: 0.01,
                 ease: 'power3.out'
             }, "<");
-            // .from('#about .carousel_container', {
-            //     yPercent: 80,
-            //     opacity: 0,
-            //     duration: 1.5,
-            //     ease: 'power3.out'
-            // }, "-=.8");
+        // .from('#about .carousel_container', {
+        //     yPercent: 80,
+        //     opacity: 0,
+        //     duration: 1.5,
+        //     ease: 'power3.out'
+        // }, "-=.8");
     }, 200);
 
 

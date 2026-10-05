@@ -148,3 +148,10 @@
 .works-carousel.bottom {
     bottom: 10rem;
 }
+
+/* Firefox: disable drop-shadow */
+@-moz-document url-prefix() {
+    .works-window-wrapper:hover {
+        filter: none;
+    }
+}

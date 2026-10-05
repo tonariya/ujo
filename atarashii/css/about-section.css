@@ -54,6 +54,13 @@
     opacity: .5;
 }
 
+/* Firefox: disable drop-shadow */
+@-moz-document url-prefix() {
+    .about-graphics-container {
+        filter: blur(.035rem) !important;
+    }
+}
+
 /* Skillset list */
 .skills-list-container {
     display: flex;
