@@ -36,8 +36,9 @@
 /* The sky box is a clip-path window over a full-screen canvas: the hero animation changes
    these variables (box size and offset) instead of width/height, so it never triggers layout */
 .canvas-container .cloud-canvas-container {
-    --bw: 600px;
-    --bh: 450px;
+    /* desktop: 35vw wide, 4:3 (js/gsap.js sets the same values, plus the start offset) */
+    --bw: 35vw;
+    --bh: calc(35vw * 3 / 4);
     --ox: 0px;
     --oy: 0px;
     position: fixed;

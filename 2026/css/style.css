@@ -14,8 +14,6 @@
 } */
 
 
-
-
 :root {
     --padding: 4rem;
     --padding-y: 1.2rem;
@@ -71,6 +69,46 @@
     margin: 0;
     box-sizing: border-box;
     /* color: var(--text-color); */
+}
+
+/* Fluid Responsive */
+html {
+    font-size: calc(0.2500000000000001rem + 0.8333333333333333vw);
+}
+
+@media screen and (max-width: 1920px) {
+    html {
+        font-size: calc(0.2499999999999999rem + 0.8333333333333335vw);
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    html {
+        font-size: calc(0.1964285714285715rem + 0.8928571428571428vw);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    html {
+        font-size: calc(0.5714285714285714rem + 0.8928571428571428vw);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: calc(0.6678200692041523rem + 0.6920415224913495vw);
+    }
+}
+
+@media screen and (max-width: 479px) {
+    html {
+        font-size: calc(0.7494769874476988rem + 0.8368200836820083vw);
+    }
+}
+
+body {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
 }
 
 html,
@@ -194,7 +232,7 @@ nav {
     position: relative;
     width: 100%;
     display: flex;
-    flex-flow: row;   
+    flex-flow: row;
 }
 
 .col-container .col {
@@ -245,7 +283,7 @@ body.menu-open footer {
     flex-flow: row;
     gap: 2rem;
     width: 100%;
-    max-width: var(--container-max-w);
+    /* max-width: var(--container-max-w); */
 }
 
 .padding-global,
@@ -394,6 +432,7 @@ body.menu-open footer {
 .works-window-inner {
     overflow: clip;
 }
+
 /*
 *   MOBILE
 */

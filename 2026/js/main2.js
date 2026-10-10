@@ -3,7 +3,8 @@ import { quality, onQualityChange } from './quality.js';
 
 const canvas = document.getElementById('cloudCanvas');
 // a single opaque full-screen quad: no need for antialiasing, depth or alpha buffers
-const glOptions = { antialias: false, depth: false, stencil: false, alpha: false, powerPreference: 'low-power' };
+// preserveDrawingBuffer: frames drawn only inside the hero box keep the last full sky around it
+const glOptions = { antialias: false, depth: false, stencil: false, alpha: false, powerPreference: 'low-power', preserveDrawingBuffer: true };
 const gl = canvas.getContext('webgl2', glOptions) || canvas.getContext('webgl', glOptions);
 
 if (gl) {
@@ -387,12 +388,16 @@ function initSky() {
     gl.uniform3fv(uniforms.deepColor1, settings.colors.deepColor1);
     gl.uniform3fv(uniforms.deepColor2, settings.colors.deepColor2);
 
+    // hero box state at the last draw (see scissorToBox)
+    let lastBox = null;
+
     // Resize handling
     function resize() {
         canvas.width = Math.ceil(window.innerWidth * renderScale());
         canvas.height = Math.ceil(window.innerHeight * renderScale());
         gl.viewport(0, 0, canvas.width, canvas.height);
         gl.uniform2f(uniforms.resolution, canvas.width, canvas.height);
+        lastBox = null; // resizing clears the canvas: the next frame draws it all
     }
 
     resize();
@@ -419,8 +424,11 @@ function initSky() {
         scrollState.progress += (targetProgress - scrollState.progress) * EASE;
     }
 
-    // The hero box is a clip-path window over the full-screen canvas: pixels outside it are never
-    // seen, so skip them. The box comes from the CSS vars GSAP writes inline (no layout read).
+    // The hero box is a clip-path window over the full-screen canvas: while it sits still (the
+    // landing screen), pixels outside it are never seen, so skip them. While it moves, draw it
+    // all: the canvas can reach the screen a few frames after the clip-path, and the box would
+    // outgrow what was drawn. preserveDrawingBuffer keeps those pixels as recent sky, not black.
+    // The box comes from the CSS vars GSAP writes inline (no layout read).
     const box = canvas.parentElement;
     const CANVAS_OVERSIZE = 1.02; // canvas is 102vw x 102vh (hero-canvas.css)
     const SCISSOR_MARGIN = 4;     // css px, covers rounding
@@ -430,8 +438,11 @@ function initSky() {
         const bh = parseFloat(box.style.getPropertyValue('--bh'));
         const w = window.innerWidth;
         const h = window.innerHeight;
+        const boxState = box.style.cssText;
+        const moving = boxState !== lastBox;
+        lastBox = boxState;
 
-        if (!(bw < w && bh < h)) {
+        if (moving || !(bw < w && bh < h)) {
             gl.disable(gl.SCISSOR_TEST);
             return;
         }
@@ -469,7 +480,7 @@ function initSky() {
         gl.uniform1f(uniforms.scroll, scrollState.scroll);
         gl.uniform1f(uniforms.progress, scrollState.progress);
 
-        // Draw (only inside the hero box while it is smaller than the screen)
+        // Draw (only inside the hero box while it sits still and is smaller than the screen)
         scissorToBox();
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }

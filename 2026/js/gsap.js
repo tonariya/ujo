@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroTitle = document.querySelector('.hero-section h1');
     const heroSubtitle = document.querySelector('.hero-subtitle');
 
+    // desktop sky box: 35% of the viewport width, always 4:3
+    const boxWidth = () => window.innerWidth * .35;
+    const boxHeight = () => boxWidth() * 3 / 4;
+
     // hero screen transition (desktop and mobile)
     if (window.innerWidth > mobileBreakpoint) {
         gsap.timeline({
@@ -23,17 +27,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 invalidateOnRefresh: true,
             }
         })
-            // box offset (was xPercent: 40, yPercent: -10 of the 600x450 box)
+            // box offset: right of centre by 40% of its width, up by 10% of its height
             .from('.cloud-canvas-container', {
-                '--ox': '240px',
-                '--oy': '-45px',
+                '--ox': () => `${boxWidth() * .4}px`,
+                '--oy': () => `${boxHeight() * -.1}px`,
                 duration: .8,
                 ease: 'power1.out'
             })
             // box size grows to cover the screen
             .fromTo('.cloud-canvas-container', {
-                '--bw': '600px',
-                '--bh': '450px',
+                '--bw': () => `${boxWidth()}px`,
+                '--bh': () => `${boxHeight()}px`,
             }, {
                 '--bw': () => `${heroSection.offsetWidth + 10}px`,
                 '--bh': () => `${heroSection.offsetHeight + 10}px`,
