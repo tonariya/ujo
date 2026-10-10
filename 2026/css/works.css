@@ -13,20 +13,21 @@
 
 .works-window-wrapper {
     position: absolute;
-    transition: filter .25s ease;
 }
 
 .works-window-wrapper:hover {
     z-index: 50;
-    -webkit-filter: drop-shadow(-20px 18px 3px #2345a340);
-    -moz-filter: drop-shadow(-20px 18px 3px #2345a340);
-    -o-filter: drop-shadow(-20px 18px 3px #2345a340);
+}
+
+/* hover shadow lives on the window itself: the wrapper's filter is driven by the scroll focus */
+.works-window-wrapper:hover .works-window-container {
     filter: drop-shadow(-20px 18px 3px #2345a340);
 }
 
 .works-window-container {
     position: relative;
-    width: 400px;
+    /* width: 400px; */
+    width: clamp(20rem, 25vw, 30rem);
     aspect-ratio: 10 / 7;
     position: relative;
     background-color: rgba(221, 222, 224, 0.274);
@@ -37,8 +38,10 @@
     padding-top: 2rem;
     border-radius: .4rem;
     border: 1px #f2f2f28c solid;
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     overflow: hidden;
+    transition: filter .25s ease;
 }
 
 .window-bar-text {
@@ -94,6 +97,9 @@
     border: 1px #f2f2f22b solid;
     opacity: 1;
     z-index: -1;
+    /* far windows: the sky behind them is already soft, skip the costly backdrop blur */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 .works-window-wrapper.gray .works-window-inner {
     background-color: #4d6bbdad;
@@ -132,10 +138,6 @@
 .works-carousel .carousel_row {
     position: relative;
     left: -5rem;
-    -webkit-transform: rotate(-10deg);
-    -moz-transform: rotate(-10deg);
-    -ms-transform: rotate(-10deg);
-    -o-transform: rotate(-10deg);
     transform: rotate(-10deg);
     pointer-events: none;
 }
@@ -172,12 +174,5 @@
 
     .works-window-inner {
         font-size: 1.25rem;
-    }
-}
-
-/* Firefox: disable drop-shadow */
-@-moz-document url-prefix() {
-    .works-window-wrapper:hover {
-        filter: none;
     }
 }

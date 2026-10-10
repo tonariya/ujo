@@ -55,11 +55,11 @@
     padding: .5rem;
     padding-top: 2rem;
     overflow: clip;
-    background-color: rgba(221, 222, 224, 0.2);
+    /* no backdrop-filter: the only thing behind it is the already-soft sky, and re-blurring it
+       on every sky frame was one of the most expensive layers on the page. A denser tint stands in. */
+    background-color: rgba(221, 222, 224, 0.26);
     border: 1px #f2f2f28c solid;
     border-radius: .4rem;
-    -webkit-backdrop-filter: blur(9px);
-    backdrop-filter: blur(9px);
 }
 
 .about-graphics-container .window-bar-text {
@@ -68,24 +68,40 @@
 }
 
 .about-graphics {
+    position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     border-radius: .2rem;
     background-color: #446cd7;
-    background-image:
-        radial-gradient(circle, rgba(242, 242, 242, .55) 1px, transparent 1.6px),
-        radial-gradient(circle at 62% 42%, #ffffff 0 9%, rgba(255, 255, 255, .55) 16%, rgba(255, 255, 255, .12) 32%, transparent 52%);
-    background-size: 7px 7px, 100% 100%;
+}
+
+/* the sun drifts via transform (compositor only, no repaint) under a static dot screen */
+.about-graphics::before,
+.about-graphics::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+.about-graphics::before {
+    inset: -10%;
+    background: radial-gradient(circle at 62% 42%, #ffffff 0 9%, rgba(255, 255, 255, .55) 16%, rgba(255, 255, 255, .12) 32%, transparent 52%);
     animation: sun-breathe 6s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+.about-graphics::after {
+    background: radial-gradient(circle, rgba(242, 242, 242, .55) 1px, transparent 1.6px) 0 0 / 7px 7px;
 }
 
 @keyframes sun-breathe {
     from {
-        background-position: 0 0, -2% 2%;
+        transform: translate(-2%, 2%);
     }
 
     to {
-        background-position: 0 0, 3% -2%;
+        transform: translate(3%, -2%);
     }
 }
 

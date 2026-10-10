@@ -27,16 +27,7 @@
     left: -100%;
 }
 
+/* text-shadow instead of filter: same glow, no rendering pass per row */
 .carousel_row span {
-    -webkit-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
-    -moz-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
-    -o-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88);
-    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2b0bba88)
-}
-
-/* Firefox: disable drop-shadow */
-@-moz-document url-prefix() {
-    .carousel_row span {
-        filter: blur(.035rem);
-    }
+    text-shadow: 0 0 1px rgba(242, 242, 242, .55), -1px 1px 1px #2b0bba88;
 }

@@ -25,15 +25,27 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    -webkit-filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
     filter: blur(1px);
     /* opacity: .9; */
 }
 
 #geometryCanvas {
     background: transparent !important;
+}
+
+/* The sky box is a clip-path window over a full-screen canvas: the hero animation changes
+   these variables (box size and offset) instead of width/height, so it never triggers layout */
+.canvas-container .cloud-canvas-container {
+    --bw: 600px;
+    --bh: 450px;
+    --ox: 0px;
+    --oy: 0px;
+    position: fixed;
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+    clip-path: inset(calc(50% - var(--bh) / 2 + var(--oy)) calc(50% - var(--bw) / 2 - var(--ox)) calc(50% - var(--bh) / 2 - var(--oy)) calc(50% - var(--bw) / 2 + var(--ox)) round var(--radius));
 }
 
 canvas#cloudCanvas {
@@ -55,9 +67,6 @@ canvas#geometryCanvas {
     height: 100svh;
     overflow: clip;
     position: relative;
-    -webkit-mix-blend-mode: difference;
-    -moz-mix-blend-mode: difference;
-    -o-mix-blend-mode: difference;
     mix-blend-mode: difference;
 }
 
@@ -70,13 +79,11 @@ canvas#geometryCanvas {
 .hero-subtitle {
     position: absolute;
     color: var(--hero-text-color);
-    -webkit-filter: blur(.05rem);
-    -moz-filter: blur(.05rem);
-    -o-filter: blur(.05rem);
     filter: blur(.05rem);
 }
 
 .hero-section h1 {
+    text-shadow: none;
     bottom: var(--padding);
     left: 0;
     white-space: nowrap;
@@ -93,19 +100,8 @@ canvas#geometryCanvas {
 .hero-subtitle {
     /* top: -2.5rem;
     right: -78.5%; */
-    -webkit-transform-origin: 0%;
-    -moz-transform-origin: 0%;
-    -ms-transform-origin: 0%;
-    -o-transform-origin: 0%;
     transform-origin: 0%;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
     transform: rotate(90deg);
-    -webkit-mix-blend-mode: difference;
-    -moz-mix-blend-mode: difference;
-    -o-mix-blend-mode: difference;
     mix-blend-mode: difference;
     color: #429ff6;
     z-index: 10;
@@ -117,6 +113,7 @@ canvas#geometryCanvas {
 
 .hero-subtitle p {
     font-size: 2rem;
+    white-space: nowrap;
 }
 
 /*
@@ -124,10 +121,8 @@ canvas#geometryCanvas {
 */
 
 @media screen and (max-width: 991px) {
-    /* explicit size: the canvas inside is absolutely positioned, so auto width collapsed to 0 */
-    .cloud-canvas-container {
-        width: 80vw;
-        height: 55svh;
-        aspect-ratio: unset;
+    .canvas-container .cloud-canvas-container {
+        --bw: 80vw;
+        --bh: 55svh;
     }
 }

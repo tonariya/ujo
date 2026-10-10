@@ -1,3 +1,5 @@
+import { gsap } from './lib.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const mobileBreakpoint = 991;
     const menuOptions = document.querySelectorAll('.nav-menu-dropdown-col');
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let goTo = anchor.getAttribute('data-go-to');
                 const targetElement = document.getElementById(goTo);
 
-                lenis.start();
+                window.lenis.start();
                 
                 if (targetElement && window.lenis) {
                     window.lenis.scrollTo(targetElement);
@@ -42,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openMenu() {
-        console.log("Opening menu");
         nav.classList.add('open');
         document.body.classList.add('toggle-btn-expanded');
         document.body.classList.add('menu-open');
@@ -91,15 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         navCarousels.forEach(carousel => {
             if (carousel.carouselAnimation) {
                 carousel.carouselAnimation.play();
-                console.log("Animating carousel");
             }
         });
 
-        lenis.stop();
+        window.lenis.stop();
     }
 
     function closeMenu() {
-        console.log("Closing menu")
         nav.classList.remove('open');
         document.body.classList.remove('toggle-btn-expanded');
         document.body.classList.remove('menu-open');
@@ -121,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
 
-                    lenis.start();
+                    window.lenis.start();
                 }
             });
     }

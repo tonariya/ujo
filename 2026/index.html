@@ -8,21 +8,22 @@
 
     <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Work+Sans:wght@300&family=M+PLUS+1+Code:wght@400;500&display=swap"
-        rel="stylesheet">
+    <!-- fonts visible in the first screen -->
+    <link rel="preload" href="./fonts/barlow-condensed/barlow-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/m-plus-1-code/m-plus-1-code-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./vendor/lenis.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/cursor.css">
     <link rel="stylesheet" href="./css/space.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <script defer src="https://unpkg.com/split-type"></script>
+    <!-- libraries, self-hosted (deferred: they run in order, before the modules below) -->
+    <script defer src="./vendor/gsap.min.js"></script>
+    <script defer src="./vendor/ScrollTrigger.min.js"></script>
+    <script defer src="./vendor/SplitText.min.js"></script>
+    <script defer src="./vendor/lenis.min.js"></script>
 
     <title>B_UJU — Portfolio 年26</title>
 </head>
@@ -51,9 +52,9 @@
 
             <div class="nav-menu-toggle-wrapper">
                 <div class="nav-menu-toggle">
-                    <div class="canvas-container-inner shape-canvas-container">
+                    <!-- <div class="canvas-container-inner shape-canvas-container">
                         <canvas id="geometryCanvas"></canvas>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="nav-msg-container">
@@ -229,7 +230,7 @@
                             </div>
                         </div>
 
-                        <div class="about-text-content" data-depth="1">
+                        <div class="about-text-content" data-depth="1" data-focus="soft">
                             <p data-reveal="words">Brief introductory text with a bit more info on who I am, where
                                 I'm from, what I do, what I like. It doesn't have to be too long, can't also be too
                                 short. I don't want to be a drag about it, but I can't let myself be unseen. That's
@@ -285,7 +286,7 @@
 
                             <div class="works-window-wrapper" data-depth="1.3">
                                 <div class="works-window-container">
-                                    <div class="window-bar-text mono">@?@&#?</div>
+                                    <div class="window-bar-text mono">@?@&amp;#?</div>
                                     <div class="works-window-inner mono">
                                         404 NOT FOUND
                                     </div>
@@ -380,7 +381,7 @@
                     </div>
 
                     <div class="contact-content">
-                        <div class="contact-text-container" data-depth="1">
+                        <div class="contact-text-container" data-depth="1" data-focus="soft">
                             <h2 data-reveal="words">Let's have a chat and make a change.</h2>
                             <p class="mono" data-depth="1.35">いいですか？</p>
                         </div>
@@ -409,14 +410,7 @@
         </div>
     </footer>
 
-    <script type="module" src="./js/cursor.js"></script>
-    <script type="module" src="./js/gsap.js"></script>
-    <script type="module" src="./js/lenis.js"></script>
-    <script type="module" src="./js/main2.js"></script>
-    <script type="module" src="./js/three-shape.js"></script>
-    <script type="module" src="./js/menu.js"></script>
-    <script type="module" src="./js/carousel-row.js"></script>
-    <script type="module" src="./js/space.js"></script>
+    <script type="module" src="./js/app.js"></script>
 </body>
 
 </html>

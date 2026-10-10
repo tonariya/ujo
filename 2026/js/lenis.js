@@ -1,16 +1,19 @@
-import Lenis from 'https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.mjs';
+import { gsap, ScrollTrigger } from './lib.js';
+
+// loaded as a plain script from vendor/lenis.min.js (see index.html)
+const { Lenis } = window;
 
 document.addEventListener('DOMContentLoaded', () => {
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false,
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
     touchMultiplier: 2,
     infinite: false,
+    autoRaf: false, // driven by GSAP's ticker below
   });
 
   // Make Lenis instance globally accessible

@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger, SplitText } from './lib.js';
 
 const mobileBreakpoint = 991;
 
@@ -20,31 +20,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 end: '+=500%',
                 scrub: true,
                 pin: true,
-                // onEnter: () => {
-                //     document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
-                //         anchor.classList.remove('ready');
-                //         document.body.classList.add('toggle-btn-expanded');
-                //         document.body.classList.add('menu-open');
-                //     });
-                // },
-                // onEnterBack: () => {
-                //     document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
-                //         anchor.classList.remove('ready');
-                //         document.body.classList.remove('toggle-btn-expanded');
-                //         document.body.classList.remove('menu-open');
-                //     });
-                // }
+                invalidateOnRefresh: true,
             }
         })
+            // box offset (was xPercent: 40, yPercent: -10 of the 600x450 box)
             .from('.cloud-canvas-container', {
-                xPercent: 40,
-                yPercent: -10,
+                '--ox': '240px',
+                '--oy': '-45px',
                 duration: .8,
                 ease: 'power1.out'
             })
-            .to('.cloud-canvas-container', {
-                width: () => `${heroSection.offsetWidth+10}px`,
-                height: () => `${heroSection.offsetHeight+10}px`,
+            // box size grows to cover the screen
+            .fromTo('.cloud-canvas-container', {
+                '--bw': '600px',
+                '--bh': '450px',
+            }, {
+                '--bw': () => `${heroSection.offsetWidth + 10}px`,
+                '--bh': () => `${heroSection.offsetHeight + 10}px`,
                 duration: 1,
                 ease: 'power2.out',
             }, "-=.5")
@@ -54,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 opacity: '0',
                 duration: .8,
                 scale: 1.5,
-                // xPercent: -150,
                 ease: 'power2.out'
             }, "<")
             .to(heroTitle, {
@@ -100,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 end: '+=500%',
                 scrub: true,
                 pin: true,
+                invalidateOnRefresh: true,
                 onEnter: () => {
                     document.querySelectorAll('.nav-menu-dropdown-col').forEach((anchor) => {
                         anchor.classList.remove('ready');
@@ -111,9 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             }
-        }).to('.cloud-canvas-container', {
-            width: () => `${heroSection.offsetWidth + 10}px`,
-            height: () => `${heroSection.offsetHeight}px`,
+        }).fromTo('.cloud-canvas-container', {
+            '--bw': () => `${window.innerWidth * .8}px`,
+            '--bh': () => `${heroSection.offsetHeight * .55}px`,
+        }, {
+            '--bw': () => `${heroSection.offsetWidth + 10}px`,
+            '--bh': () => `${heroSection.offsetHeight}px`,
             duration: 1,
             ease: 'power2.out',
         })
@@ -162,8 +157,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // hero text reveal (generic)
-    const splitTextTitle = new SplitType(heroTitle, { types: 'chars' });
-    const splitTextSubtitle = new SplitType(heroSubtitle, { types: 'lines' });
+    const splitTextTitle = SplitText.create(heroTitle, { type: 'chars' });
+    // the subtitle is a single line: animate it as one block (splitting broke it at the 年)
+    const subtitleText = heroSubtitle.querySelector('p');
 
     gsap.timeline()
         .from(splitTextTitle.chars, {
@@ -175,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             filter: 'blur(8px)',
             ease: 'power2.out'
         })
-        .from(splitTextSubtitle.lines, {
+        .from(subtitleText, {
             yPercent: 50,
             opacity: 0,
             duration: 0.8,
@@ -215,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ease: 'power3.inOut'
         }, "-=.5")
         .fromTo('.works-carousel', {
-            // scale: 1.5,
             yPercent: 100,
             opacity: 0,
             filter: 'blur(8px)',

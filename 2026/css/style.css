@@ -1,9 +1,7 @@
 @import url('nav.css');
 @import url('hero-canvas.css');
-@import url('swiper.css');
 @import url('about-section.css');
 @import url('carousel-row.css');
-@import url('card-el.css');
 @import url('works.css');
 @import url('contact.css');
 
@@ -31,7 +29,7 @@
     --radius: .25rem;
     --radius-lg: 2rem;
 
-    --container-max-w: 1512px;
+    --container-max-w: 1900px;
 
     --nav-text-size: 2rem;
     --nav-text-size-m: 1.25rem;
@@ -102,10 +100,8 @@ h5,
 
     color: var(--white);
     opacity: .85;
-    -webkit-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
-    -moz-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
-    -o-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
-    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
+    /* text-shadow instead of filter: same soft glow, no separate rendering pass */
+    text-shadow: 0 0 1px rgba(242, 242, 242, .55), -1px 1px 1px #2a0bba;
 }
 
 h1 {
@@ -228,13 +224,7 @@ section {
     max-width: calc(100vw - 1px);
     /* clip (not hidden) so parallaxed content isn't cut off vertically */
     overflow-x: clip;
-    -webkit-transition: opacity .5s ease;
-    -moz-transition: opacity .5s ease;
-    -o-transition: opacity .5s ease;
     transition: opacity .5s ease;
-    -webkit-transition-delay: .25s;
-    -moz-transition-delay: .25s;
-    -o-transition-delay: .25s;
     transition-delay: .25s;
 }
 
@@ -364,11 +354,13 @@ body.menu-open footer {
     color: var(--white);
     background-color: transparent;
     transition: color .25s ease, background-color .2s ease;
-    -webkit-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
-    -moz-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
-    -o-filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
-    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba) !important;
     cursor: pointer;
+}
+
+/* soft glow applied once per group instead of once per pill */
+.skills-list,
+.contacts-row-container {
+    filter: blur(.035rem) drop-shadow(-1px 1px 1px #2a0bba);
 }
 
 .social-btn:hover,
@@ -397,15 +389,6 @@ body.menu-open footer {
     overflow-y: clip;
 }
 
-/* Firefox: disable drop-shadow */
-@-moz-document url-prefix() {
-    h1, h2, h3, h4, h5, .quote {
-        filter: blur(.035rem);
-    }
-    .social-btn, .skills-item {
-        filter: blur(.035rem) !important;
-    }
-}
 
 /* Works Window */
 .works-window-inner {
@@ -418,4 +401,12 @@ body.menu-open footer {
     .padding-global {
         padding: var(--padding-m) var(--padding-sm);
     }
+}
+
+/* Images (case pages): never overflow, keep their ratio while loading.
+   Use <img src srcset sizes width height loading="lazy" decoding="async"> with AVIF/WebP. */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }

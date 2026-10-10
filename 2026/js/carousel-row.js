@@ -1,3 +1,5 @@
+import { gsap, ScrollTrigger } from './lib.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const wrappers = document.querySelectorAll('.carousel_row');
     let durationDefault = 30;
@@ -55,37 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add ScrollTriggers after a delay to ensure DOM is fully settled
     setTimeout(() => {
-        // // ScrollTrigger for About section carousel
-        // ScrollTrigger.create({
-        //     trigger: "#about",
-        //     start: "top bottom",
-        //     end: "bottom top",
-        //     // markers: true,
-        //     onEnter: () => {
-        //         const aboutCarousel = document.querySelector('#about .carousel_row');
-        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
-        //             aboutCarousel.carouselAnimation.play();
-        //         }
-        //     },
-        //     onLeave: () => {
-        //         const aboutCarousel = document.querySelector('#about .carousel_row');
-        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
-        //             aboutCarousel.carouselAnimation.pause();
-        //         }
-        //     },
-        //     onEnterBack: () => {
-        //         const aboutCarousel = document.querySelector('#about .carousel_row');
-        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
-        //             aboutCarousel.carouselAnimation.play();
-        //         }
-        //     },
-        //     onLeaveBack: () => {
-        //         const aboutCarousel = document.querySelector('#about .carousel_row');
-        //         if (aboutCarousel && aboutCarousel.carouselAnimation) {
-        //             aboutCarousel.carouselAnimation.pause();
-        //         }
-        //     }
-        // });
 
         // ScrollTrigger for Works section carousels
         ScrollTrigger.create({

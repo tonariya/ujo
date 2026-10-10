@@ -1,3 +1,6 @@
+import { gsap, ScrollTrigger, SplitText } from './lib.js';
+import { quality, onQualityChange } from './quality.js';
+
 // Continuous "floating space": depth parallax with focus in/out, scroll-linked text reveals,
 // foreground clouds and the HUD. Everything here is an enhancement: the page reads fine without it.
 
@@ -28,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // DEPTH + FOCUS
 // [data-depth] < 1 is far (slower, smaller as it leaves), > 1 is near (faster, grows as it leaves).
 // Everything is sharp around the middle of the viewport and blurs/fades towards the edges.
+// [data-focus="soft"] (long paragraphs) only fades and scales: blurring big text blocks is costly.
+// In lite mode nothing blurs.
 function initDepth() {
     const floats = gsap.utils.toArray('[data-depth]');
     const range = () => isMobile() ? 60 : 180;
@@ -36,28 +41,48 @@ function initDepth() {
         const depth = parseFloat(el.dataset.depth) || 1;
         // respect opacity set in CSS (labels, captions)
         const baseOpacity = parseFloat(getComputedStyle(el).opacity) || 1;
+        const canBlur = el.dataset.focus !== 'soft';
+
+        const setY = gsap.quickSetter(el, 'y', 'px');
+        const setScale = gsap.quickSetter(el, 'scale');
+        const setOpacity = gsap.quickSetter(el, 'opacity');
+        let lastEdge = -1;
+        let lastBlur = -1;
 
         const apply = (progress) => {
             const amp = (1 - depth) * range();
+            setY(gsap.utils.interpolate(-amp, amp, progress));
+
             // 0 around the viewport centre, 1 at either edge
             const edge = gsap.utils.clamp(0, 1, (Math.abs(progress - .5) * 2 - .4) / .6);
+            if (edge === lastEdge) return;   // in focus and unchanged: only the parallax moves
+            lastEdge = edge;
 
-            gsap.set(el, {
-                y: gsap.utils.interpolate(-amp, amp, progress),
-                scale: 1 + edge * (depth - 1) * .3,
-                opacity: baseOpacity * (1 - edge * .85),
-            });
-            // clear the inline filter when in focus so CSS filters (hover shadows etc.) still apply
-            el.style.filter = edge > 0 ? `blur(${(edge * 10).toFixed(2)}px)` : '';
+            setScale(1 + edge * (depth - 1) * .3);
+            setOpacity(baseOpacity * (1 - edge * .85));
+
+            // blur in half-pixel steps, so it only repaints when the step changes;
+            // cleared when in focus so CSS filters (hover shadows etc.) still apply
+            const blur = canBlur && !quality.lite ? Math.round(edge * 20) / 2 : 0;
+            if (blur !== lastBlur) {
+                lastBlur = blur;
+                el.style.filter = blur > 0 ? `blur(${blur}px)` : '';
+            }
         };
 
-        ScrollTrigger.create({
+        const trigger = ScrollTrigger.create({
             trigger: el,
             start: 'top bottom',
             end: 'bottom top',
             onUpdate: (self) => apply(self.progress),
-            onRefresh: (self) => apply(self.progress),
+            // transforms were cleared for measuring: re-apply everything
+            onRefresh: (self) => { lastEdge = -1; lastBlur = -1; apply(self.progress); },
+            // own compositor layer only while on screen: moves without repainting, memory freed after
+            onToggle: (self) => { el.style.willChange = self.isActive ? 'transform, opacity' : ''; },
         });
+
+        // switching to lite mode drops any blur already applied
+        onQualityChange(() => { lastEdge = -1; apply(trigger.progress); });
     });
 
     // measure untransformed positions
@@ -82,7 +107,7 @@ function initDrift() {
 // Words surface as their paragraph scrolls up, and sink back when scrolling up again
 function initTextReveals() {
     gsap.utils.toArray('[data-reveal="words"]').forEach((el) => {
-        const split = new SplitType(el, { types: 'words' });
+        const split = SplitText.create(el, { type: 'words', wordsClass: 'word' });
 
         gsap.fromTo(split.words, { yPercent: 60, opacity: 0 }, {
             yPercent: 0,
@@ -105,18 +130,31 @@ function initForegroundClouds() {
         h: el.offsetHeight,
     }));
 
-    const measure = () => clouds.forEach((c) => { c.h = c.el.offsetHeight; });
-    window.addEventListener('resize', measure);
+    clouds.forEach((c) => {
+        gsap.set(c.el, { xPercent: c.x });
+        c.setY = gsap.quickSetter(c.el, 'y', 'px');
+    });
+
+    let vh = window.innerHeight;
+    let lastScroll = null;
+
+    window.addEventListener('resize', () => {
+        vh = window.innerHeight;
+        clouds.forEach((c) => { c.h = c.el.offsetHeight; });
+        lastScroll = null;
+    });
 
     gsap.ticker.add(() => {
-        const vh = window.innerHeight;
+        if (quality.lite) return;        // hidden in lite mode
         const sy = window.scrollY;
+        if (sy === lastScroll) return;   // nothing moves while the page is still
+        lastScroll = sy;
 
         clouds.forEach((c) => {
             // each cloud crosses the screen roughly once every couple of viewports
             const span = vh * 2.5 + c.h;
             const pos = (((c.offset * span - sy * c.speed) % span) + span) % span;
-            gsap.set(c.el, { y: pos - c.h, xPercent: c.x });
+            c.setY(pos - c.h);
         });
     });
 }

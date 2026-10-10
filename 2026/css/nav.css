@@ -61,8 +61,6 @@ nav.open {
     border: 2.5px var(--border-color-alt) solid;
     transition: all 1.25s ease;
     -webkit-backdrop-filter: blur(8px);
-    -moz-backdrop-filter: blur(8px);
-    -o-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
@@ -119,7 +117,7 @@ nav.ready .nav-menu-toggle-wrapper:hover {
 
     font-weight: 600;
     color: var(--white);
-    filter: blur(.035rem);
+    text-shadow: 0 0 1px rgba(242, 242, 242, .55);
 }
 
 .sub-jp {
@@ -128,7 +126,7 @@ nav.ready .nav-menu-toggle-wrapper:hover {
     font-size: 1.25rem;
     text-align: right;
     color: var(--white);
-    filter: blur(.035rem);
+    text-shadow: 0 0 1px rgba(242, 242, 242, .55);
     opacity: 0;
     transition: opacity .8s ease;
     transition-delay: .25s;
@@ -157,11 +155,9 @@ nav.ready .nav-menu-toggle {
     border: 1px solid var(--white-alpha);
     border-radius: var(--radius);
     -webkit-backdrop-filter: blur(8px);
-    -moz-backdrop-filter: blur(8px);
-    -o-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     transition-delay: 0s, 1s;
-    transition: background-color .4s ease, backdrop-filter .4s ease;
+    transition: background-color .4s ease;
     z-index: 95;
 }
 
@@ -177,10 +173,7 @@ nav.ready .nav-menu-toggle {
 
 .nav-menu-content h2 {
     color: var(--white);
-    -webkit-filter: blur(.05rem);
-    -moz-filter: blur(.05rem);
-    -o-filter: blur(.05rem);
-    filter: blur(.05rem);
+    text-shadow: 0 0 1.5px rgba(242, 242, 242, .7);
     opacity: .9;
 }
 
@@ -216,15 +209,7 @@ nav.ready .nav-menu-dropdown-col:hover .carousel_container {
 
 .nav-menu-dropdown-col .carousel_container_inner {
     width: 100svh;
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
-    -webkit-transform-origin: 0% 0%;
-    -moz-transform-origin: 0% 0%;
-    -ms-transform-origin: 0% 0%;
-    -o-transform-origin: 0% 0%;
     transform-origin: 0% 0%;
     position: absolute;
     left: calc(100% - 6.25vw);
@@ -232,9 +217,6 @@ nav.ready .nav-menu-dropdown-col:hover .carousel_container {
     font-size: 8rem;
     color: var(--white);
     opacity: .85;
-    -webkit-filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
     filter: blur(1px);
 }
 

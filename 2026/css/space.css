@@ -2,26 +2,30 @@
 *   SPACE: the layers that make the page one continuous sky
 */
 
-/* Film grain: risograph texture over everything */
+/* Film grain: risograph texture over everything.
+   A plain layer of pale-blue noise at low opacity. It used to be white noise with
+   mix-blend-mode: overlay, which made the browser re-blend the whole page under it every time
+   the grain moved. This tile and opacity were matched against that look (same lift and texture
+   on the sky blues, neutral on the off-white). */
 .grain {
     position: fixed;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
+    /* just big enough to hide the edges while it jitters */
+    inset: -10%;
+    width: 120%;
+    height: 120%;
     z-index: 1000;
     pointer-events: none;
-    opacity: .16;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .11;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .78 0 0 0 0 .9 0 0 0 0 1 0 0 0 1.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     animation: grain-shift .9s steps(6) infinite;
 }
 
 @keyframes grain-shift {
     0% { transform: translate(0, 0); }
-    20% { transform: translate(-4%, 3%); }
-    40% { transform: translate(3%, -5%); }
-    60% { transform: translate(-2%, 6%); }
-    80% { transform: translate(5%, -2%); }
+    20% { transform: translate(-3%, 2%); }
+    40% { transform: translate(2%, -4%); }
+    60% { transform: translate(-2%, 4%); }
+    80% { transform: translate(4%, -2%); }
     100% { transform: translate(0, 0); }
 }
 
@@ -261,11 +265,23 @@ body.menu-open .hud {
 
 
 /*
+*   LITE MODE: set by js/quality.js on devices that struggle
+*/
+.lite .fg-clouds {
+    display: none;
+}
+
+.lite .grain {
+    animation: none;
+}
+
+
+/*
 *   REDUCED MOTION
 */
 @media (prefers-reduced-motion: reduce) {
     .grain,
-    .about-graphics,
+    .about-graphics::before,
     .hud-rec {
         animation: none;
     }

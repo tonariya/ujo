@@ -1,3 +1,5 @@
+import { gsap } from './lib.js';
+
 const cursorFollower = document.querySelector('.cursor-follower');
 const cursorFollowerInner = document.querySelector('.cursor-follower-inner');
 const cursorFollowerInnerFade = document.querySelector('.cursor-follower-inner.fade');
